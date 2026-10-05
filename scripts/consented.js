@@ -11,7 +11,11 @@ function loadMunchkin() {
   const init = () => {
     if (didInit || !window.Munchkin) return;
     didInit = true;
-    window.Munchkin.init('185-NGX-811', { wsInfo: 'iklZbMU%3D' });
+    window.Munchkin.init('185-NGX-811', {
+      wsInfo: 'iklZbMU%3D',
+      // cookie on the exact host name (shared parent domains like aem.page reject domain cookies)
+      domainLevel: window.location.hostname.split('.').length,
+    });
   };
 
   const script = document.createElement('script');
