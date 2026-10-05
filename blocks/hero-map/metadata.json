@@ -1,0 +1,22 @@
+{
+  "variantName": "hero-map",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "purpose": "page-title-banner",
+    "imagePattern": "full-bleed-background",
+    "structure": "background image + h1 + positioned logo markers"
+  },
+  "contentPattern": "Row 1 (1 cell): map image (picture) + h1 'Contact Us'. Rows 2..14 (3 cells each): [country code text e.g. 'CA'] | [company logo picture + flag picture] | [link to affiliate site, link text = company name or code; '#' allowed for current site]. Marker position is driven by CSS keyed on the country code (decorator adds a class per marker), so authors never enter coordinates. Common red pin image is a block asset, not authored.",
+  "usage": {
+    "pagesUsing": [
+      { "url": "https://www.lupin.com/US/contact-us", "instanceId": "1.1", "screenshot": "migration-work/screenshot.png" }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-05T00:00:00Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

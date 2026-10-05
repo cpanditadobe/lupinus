@@ -1,0 +1,22 @@
+{
+  "variantName": "columns-contacts",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "medium",
+    "purpose": "contact-directory",
+    "imagePattern": "noimg",
+    "structure": "heading + name + title + email"
+  },
+  "contentPattern": "Columns: 1 row, 3 cells. Cell 1: h2 'Careers'; p mailto link. Cell 2: h2 'Media'; p strong 'Rajalakshmi Azariah'; p 'Vice President & Global Head - Corporate Communications'; p mailto; hr (or second group); p strong 'Elise Titan'; p 'Director, U.S. Communications'; p mailto. Cell 3: h2 'Enquiries'; p mailto link.",
+  "usage": {
+    "pagesUsing": [
+      { "url": "https://www.lupin.com/US/contact-us", "instanceId": "5.1", "screenshot": "migration-work/screenshot.png" }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-05T00:00:00Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

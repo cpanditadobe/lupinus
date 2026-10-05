@@ -1,0 +1,206 @@
+/*
+ * columns-contacts: centred contact columns separated by thin grey dividers.
+ * Values come from the source (lupin.com/US/contact-us, section.media_contact). The source
+ * scales everything with the viewport width, so sizes are kept in vw (measured px / viewport,
+ * e.g. 30px / 1440px = 2.0833vw). The source switches to its stacked layout at 540px; between
+ * 541px and 899px the stacked (mobile) values are capped at their 540px size with min().
+ *
+ * Decorated DOM (see columns-contacts.js):
+ *   .columns-contacts-row > .columns-contacts-col > h2.columns-contacts-heading
+ *     + .columns-contacts-group > p.columns-contacts-name / p (job title) / p.columns-contacts-link
+ * A column holding named contacts (.columns-contacts-name) is the "featured" column (source: Media);
+ * columns without names push their heading down so it lines up with the first contact name.
+ */
+
+/* Helvetica LT Std Bold, used by the source for the mailto links (served by lupin.com, CORS enabled) */
+@font-face {
+  font-family: columns-contacts-helvetica-bold;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://www.lupin.com/US/fonts/helvetica/bold/Helvetica_LT_Std_Bold.woff') format('woff');
+}
+
+.columns-contacts {
+  margin-top: min(9.6618vw, 52.17px);
+  color: var(--text-color);
+  text-align: center;
+}
+
+/* mobile: stacked columns */
+.columns-contacts .columns-contacts-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: min(6.0386vw, 32.61px);
+}
+
+.columns-contacts .columns-contacts-row + .columns-contacts-row {
+  margin-top: min(6.0386vw, 32.61px);
+}
+
+.columns-contacts .columns-contacts-col {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* dividers between stacked columns: rule, then the same space as the column gap */
+.columns-contacts .columns-contacts-col + .columns-contacts-col {
+  border-top: 1px solid rgb(190 190 190);
+  padding-top: min(6.0386vw, 32.61px);
+}
+
+/* column heading (Careers / Media / Enquiries) */
+.columns-contacts .columns-contacts-heading {
+  margin: 0 0 min(4.8309vw, 26.09px);
+  font-family: var(--heading-font-family);
+  font-size: min(4.8309vw, 26.09px);
+  font-weight: 400;
+  line-height: 1;
+  color: rgb(7 162 65 / 80%);
+}
+
+.columns-contacts .columns-contacts-col:has(.columns-contacts-name) .columns-contacts-heading {
+  margin-bottom: min(6.0386vw, 32.61px);
+}
+
+.columns-contacts .columns-contacts-group > p {
+  margin: 0;
+}
+
+/* contact name */
+.columns-contacts .columns-contacts-name {
+  font-family: var(--heading-font-family);
+  font-size: min(4.8309vw, 26.09px);
+  line-height: 1;
+  color: var(--text-color);
+}
+
+.columns-contacts .columns-contacts-name strong,
+.columns-contacts .columns-contacts-name b {
+  font-weight: 400;
+}
+
+/* job title */
+.columns-contacts .columns-contacts-group > p:not(.columns-contacts-name, .columns-contacts-link) {
+  width: 70%;
+  margin: 0.5208vw auto 1.0417vw;
+  font-family: var(--body-font-family);
+  font-size: min(3.3816vw, 18.26px);
+  line-height: 1.3;
+  letter-spacing: 1px;
+  color: var(--text-color);
+}
+
+/* mailto / tel link */
+.columns-contacts .columns-contacts-link {
+  font-family: columns-contacts-helvetica-bold, "Helvetica Neue", helvetica, arial, sans-serif;
+  font-size: min(3.8647vw, 20.87px);
+  font-weight: 700;
+
+  /* source line box is ~25px @390 (link line mixed with the 14px / 21px body strut) */
+  line-height: 1.65;
+}
+
+.columns-contacts .columns-contacts-link a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.3s ease-in;
+}
+
+.columns-contacts .columns-contacts-link a:hover {
+  color: rgb(7 158 63);
+  text-decoration: none;
+}
+
+/* several contacts in one column: the source puts one 21px line (14px / 1.5) between them */
+.columns-contacts .columns-contacts-group:has(+ .columns-contacts-group) {
+  padding-bottom: min(5.314vw, 28.7px);
+}
+
+.columns-contacts .columns-contacts-group + .columns-contacts-group {
+  margin-top: 21px;
+}
+
+@media (width >= 900px) {
+  /* the source block spans the viewport minus 4.1667vw (60px @1440) on each side */
+  .columns-contacts-container .columns-contacts-wrapper {
+    max-width: none;
+    padding: 0 4.1667vw;
+  }
+
+  .columns-contacts {
+    margin-top: 6.25vw;
+  }
+
+  .columns-contacts .columns-contacts-row {
+    flex-direction: row;
+    justify-content: center;
+
+    /* stretch so every divider runs the full height of the tallest column (as on the source) */
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .columns-contacts .columns-contacts-row + .columns-contacts-row {
+    margin-top: 6.25vw;
+  }
+
+  .columns-contacts .columns-contacts-col {
+    flex: 1 1 0;
+    width: auto;
+  }
+
+  /* vertical dividers */
+  .columns-contacts .columns-contacts-col + .columns-contacts-col {
+    border-top: 0;
+    border-left: 1px solid rgb(190 190 190);
+    padding-top: 0;
+  }
+
+  .columns-contacts .columns-contacts-col:has(.columns-contacts-name) {
+    padding: 0 2.6042vw;
+  }
+
+  /* source widths: 33.333% | 40% | 33.333%, shrunk proportionally to fit */
+  .columns-contacts.columns-contacts-3-cols .columns-contacts-col {
+    flex: 0 1 auto;
+    width: 33.3333%;
+  }
+
+  .columns-contacts.columns-contacts-3-cols .columns-contacts-col:nth-child(2) {
+    width: 40%;
+  }
+
+  .columns-contacts .columns-contacts-heading {
+    margin: 6.25vw 0 2.7604vw;
+    font-size: 2.0833vw;
+  }
+
+  .columns-contacts .columns-contacts-col:has(.columns-contacts-name) .columns-contacts-heading {
+    margin: 0 0 4.1667vw;
+  }
+
+  .columns-contacts .columns-contacts-name {
+    font-size: 1.7708vw;
+  }
+
+  .columns-contacts .columns-contacts-group > p:not(.columns-contacts-name, .columns-contacts-link) {
+    width: 80%;
+    font-size: 0.8333vw;
+    line-height: 1.5;
+  }
+
+  .columns-contacts .columns-contacts-link {
+    font-size: 1.3979vw;
+    line-height: 1.5;
+  }
+
+  /* rule under every contact but the last in a column */
+  .columns-contacts .columns-contacts-group:has(+ .columns-contacts-group) {
+    padding-bottom: 1.1458vw;
+    border-bottom: 1px solid rgb(190 190 190);
+  }
+}

@@ -331,3 +331,86 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+main .section.light-green {
+  background-color: #f6fcf8;
+  margin: 0;
+  padding: 47px 0;
+}
+
+/* contact details: stacked heading + phone/email groups */
+main .section.contact-details {
+  margin-top: 47px;
+}
+
+main .section.contact-details h2 {
+  margin: 0 0 14px;
+  font-size: 19px;
+  line-height: 1;
+}
+
+main .section.contact-details h2 br {
+  display: none;
+}
+
+main .section.contact-details p {
+  margin: 0 0 9.5px;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #000;
+}
+
+main .section.contact-details a:any-link {
+  color: #000;
+}
+
+main .section.contact-details a:hover {
+  color: rgb(0 0 0 / 70%);
+  text-decoration: none;
+}
+
+/* large section headings above the location cards and the contact form */
+main .cards-location-container .default-content-wrapper h2,
+main .form-contact-container .default-content-wrapper h2 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1;
+}
+
+main .form-contact-container .default-content-wrapper h2 {
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+@media (width >= 900px) {
+  main .section.light-green {
+    padding: 75px 0 88px;
+  }
+
+  main .section.contact-details {
+    margin-top: 75px;
+  }
+
+  main .section.contact-details h2 {
+    margin-bottom: 15px;
+    font-size: 30px;
+  }
+
+  main .section.contact-details h2 br {
+    display: initial;
+  }
+
+  main .section.contact-details p {
+    margin-bottom: 11.25px;
+    font-size: 16.5px;
+  }
+
+  main .cards-location-container .default-content-wrapper h2,
+  main .form-contact-container .default-content-wrapper h2 {
+    font-size: 45px;
+  }
+
+  main .form-contact-container .default-content-wrapper h2 {
+    margin-bottom: 37.5px;
+  }
+}

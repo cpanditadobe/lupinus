@@ -7,6 +7,15 @@
  */
 const TransformHook = { beforeTransform: 'beforeTransform', afterTransform: 'afterTransform' };
 
+// Authored content sections per template (verified in each template's cleaned.html).
+const CONTENT_SECTIONS = [
+  // product
+  'section.product_listing_banner', '#product_listing', '#patient-education',
+  // contact-us
+  'section.contact_banner', 'section.contact_address', 'section.contact_location',
+  'section.contact_form', 'section.media_contact',
+].join(', ');
+
 function removeAll(root, selector) {
   root.querySelectorAll(selector).forEach((el) => el.remove());
 }
@@ -24,8 +33,10 @@ export default function transform(hookName, element, payload) {
       const marker = element.querySelector(sel);
       if (!marker) return;
       const wrapperDiv = marker.closest('#wrapper > div');
-      // Never remove the first #wrapper div (it holds the page content)
-      if (wrapperDiv && !wrapperDiv.querySelector('section.product_listing_banner, #product_listing, #patient-education')) {
+      // Never remove the #wrapper div that holds the page content
+      // (product: section.product_listing_banner/#product_listing/#patient-education;
+      //  contact-us: section.contact_banner/.contact_address/.contact_location/.contact_form/.media_contact)
+      if (wrapperDiv && !wrapperDiv.querySelector(CONTENT_SECTIONS)) {
         wrapperDiv.remove();
       } else {
         marker.remove();
@@ -55,6 +66,27 @@ export default function transform(hookName, element, payload) {
     // Hidden LIST-view table inside .product_main_container (duplicates the grid items);
     // removed before parsing so the cards-product parser doesn't pick it up.
     removeAll(element, '#product_listing div.product_table_container');
+
+    // --- Contact details: one paragraph per "Label : <a>" line ---
+    // Source: <div class="lupin_contact"><span>Phone :<a>&nbsp;+1 866…</a></span><span>Email :<a>…</a></span></div>
+    // The importer's preprocessing has already unwrapped those spans by now, leaving
+    // "Phone :", whitespace <span>/<p> fragments and the <a>, which would collapse into one line.
+    element.querySelectorAll('section.contact_address .lupin_contact').forEach((contact) => {
+      const lines = [];
+      let label = '';
+      contact.childNodes.forEach((node) => {
+        if (node.nodeType === 1 && node.tagName === 'A') {
+          const p = document.createElement('p');
+          if (label) p.append(`${label} `);
+          p.append(node.cloneNode(true));
+          lines.push(p);
+          label = '';
+        } else if (node.textContent.trim()) {
+          label = node.textContent.trim();
+        }
+      });
+      if (lines.length) contact.replaceChildren(...lines);
+    });
   }
 
   if (hookName === TransformHook.afterTransform) {

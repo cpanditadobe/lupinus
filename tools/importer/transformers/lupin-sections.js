@@ -5,7 +5,10 @@
  * Transformer: lupin.com (US) section breaks + Section Metadata.
  * Uses payload.template.sections from tools/importer/page-templates.json.
  * Section selectors (section.product_listing_banner, section.product_filter,
- * #product_listing, #patient-education) verified in migration-work/cleaned.html.
+ * #product_listing, #patient-education) verified in the product cleaned.html;
+ * contact-us selectors (section.contact_banner, section.contact_address,
+ * section.contact_location, section.contact_form [style: light-green],
+ * section.media_contact) verified in the contact-us cleaned.html.
  *
  * Breaks are inserted in beforeTransform (before parsers replace section elements);
  * Section Metadata is inserted in afterTransform, anchored to a marker <hr>.

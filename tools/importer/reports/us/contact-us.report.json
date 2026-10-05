@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "url": "https://www.lupin.com/US/contact-us",
+  "path": "us/contact-us",
+  "timestamp": "2026-10-05T14:56:25.891Z",
+  "title": "Contact Lupin US | Get in Touch with Our Team",
+  "template": "contact-us",
+  "blocks": [
+    "hero-map",
+    "cards-location",
+    "form-contact",
+    "columns-contacts"
+  ]
+}

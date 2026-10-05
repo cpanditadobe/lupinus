@@ -1,0 +1,22 @@
+{
+  "variantName": "cards-location",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "medium",
+    "purpose": "location-directory",
+    "imagePattern": "noimg",
+    "structure": "heading + label + description + address"
+  },
+  "contentPattern": "Cards (no images): 1 cell per row, 4 rows. Cell: h3 city; p label (bold/strong); p description; p address lines separated by <br> (last line 'Phone: ...'). Decorator can style the last paragraph as the green address.",
+  "usage": {
+    "pagesUsing": [
+      { "url": "https://www.lupin.com/US/contact-us", "instanceId": "3.2", "screenshot": "migration-work/screenshot.png" }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-05T00:00:00Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

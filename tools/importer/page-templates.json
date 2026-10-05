@@ -9,9 +9,100 @@
         "https://www.lupin.com/US/contact-us"
       ],
       "representativeUrl": "https://www.lupin.com/US/contact-us",
-      "description": "To be named in naming step",
-      "blocks": [],
-      "urlPattern": "/US/*"
+      "description": "Lupin US contact page: world-map banner with affiliate markers, contact details, US location cards, contact form (layout only), media/careers contact columns",
+      "blocks": [
+        {
+          "name": "hero-map",
+          "instances": [
+            "section.contact_banner"
+          ]
+        },
+        {
+          "name": "cards-location",
+          "instances": [
+            "section.contact_location .contact_location_container"
+          ]
+        },
+        {
+          "name": "form-contact",
+          "instances": [
+            "section.contact_form form.form_detail"
+          ]
+        },
+        {
+          "name": "columns-contacts",
+          "instances": [
+            "section.media_contact .media_contact_container"
+          ]
+        }
+      ],
+      "urlPattern": "/US/*",
+      "sections": [
+        {
+          "id": "1",
+          "name": "World map banner",
+          "selector": [
+            "section.contact_banner"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-map"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "2",
+          "name": "Customer service and product quality contacts",
+          "selector": [
+            "section.contact_address"
+          ],
+          "style": "contact-details",
+          "blocks": [],
+          "defaultContent": [
+            "section.contact_address .address_content"
+          ]
+        },
+        {
+          "id": "3",
+          "name": "Lupin U.S. Locations",
+          "selector": [
+            "section.contact_location"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-location"
+          ],
+          "defaultContent": [
+            "section.contact_location > h2"
+          ]
+        },
+        {
+          "id": "4",
+          "name": "Contact form",
+          "selector": [
+            "section.contact_form"
+          ],
+          "style": "light-green",
+          "blocks": [
+            "form-contact"
+          ],
+          "defaultContent": [
+            "section.contact_form > h2"
+          ]
+        },
+        {
+          "id": "5",
+          "name": "Careers / Media / Enquiries contacts",
+          "selector": [
+            "section.media_contact"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-contacts"
+          ],
+          "defaultContent": []
+        }
+      ]
     },
     {
       "name": "product",

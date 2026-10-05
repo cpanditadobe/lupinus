@@ -1,0 +1,498 @@
+/* hero-map: page-title banner over a world map with positioned affiliate markers.
+ * All values come from the source (lupin.com/US/contact-us, section.contact_banner), which
+ * sizes everything in vw and positions markers in % of the map box. The source switches to its
+ * mobile layout at max-width 540px, so the desktop rules start at 541px.
+ */
+
+/* full-bleed: the map spans the viewport like the source banner */
+main > .section > .hero-map-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+.hero-map {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 28.9855vw;
+  background-color: #f7f6f6;
+}
+
+/* map stage: markers are positioned in % of this box */
+.hero-map .hero-map-stage {
+  position: relative;
+  width: 100%;
+}
+
+.hero-map .hero-map-map picture {
+  display: block;
+}
+
+/* mobile: the map is scaled up 1.3x and clipped by the block, as on the source */
+.hero-map .hero-map-map img,
+.hero-map .hero-map-map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1920 / 1080;
+  scale: 1.3;
+}
+
+/* inline map (see hero-map.js): source fills/strokes */
+.hero-map .hero-map-map svg .st0 {
+  fill: #f4f4f4;
+  stroke: #474747;
+  stroke-width: 0.58;
+  stroke-miterlimit: 10;
+}
+
+.hero-map .hero-map-map svg .st1,
+.hero-map .hero-map-map svg .st2 {
+  fill: #f4f4f4;
+  stroke: #969696;
+  stroke-width: 0.58;
+  stroke-miterlimit: 10;
+}
+
+.hero-map .hero-map-map svg .st2 {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hero-map .hero-map-map svg .st3 {
+  fill: #f4f4f4;
+  stroke: #969696;
+  stroke-width: 0.4399;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.hero-map .hero-map-map svg .hero-map-country {
+  transition: fill 1s ease-in;
+}
+
+.hero-map .hero-map-map svg .hero-map-country.active {
+  fill: var(--brand-green);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-map .hero-map-map svg .hero-map-country {
+    transition: none;
+  }
+}
+
+.hero-map .hero-map-markers,
+.hero-map .hero-map-markers-unplaced {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-map .hero-map-markers {
+  position: absolute;
+  inset: 0;
+}
+
+/* each marker box is placed like the source's a.country (top/left/right/bottom in % of the map) */
+.hero-map .hero-map-markers .hero-map-marker {
+  position: absolute;
+  inset: var(--top, auto) var(--right, auto) var(--bottom, auto) var(--left, auto);
+}
+
+.hero-map .hero-map-marker-link {
+  display: flex;
+  flex-direction: var(--dir, row);
+  align-items: var(--align, center);
+  gap: var(--gap, 0);
+  color: inherit;
+  text-decoration: none;
+}
+
+.hero-map .hero-map-marker-link:hover {
+  text-decoration: none;
+}
+
+/* company logo pill */
+.hero-map .hero-map-logo {
+  display: block;
+  flex: none;
+  margin-top: var(--pill-mt, 0);
+  padding: var(--pill-pad, 0.7246vw 2.4155vw);
+  border: 1px solid #a7a7a7;
+  border-radius: 6.0386vw;
+  background: #fff;
+}
+
+.hero-map .hero-map-logo picture {
+  display: block;
+}
+
+.hero-map .hero-map-logo img {
+  display: block;
+  width: var(--logo-w, 10vw);
+  height: auto;
+  scale: var(--logo-scale, 1);
+}
+
+/* pin (block asset) with the round flag in its head */
+.hero-map .hero-map-pin {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 2.8986vw;
+  aspect-ratio: 681 / 1213;
+  scale: var(--pin-scale, 1);
+  background: url('./pin.webp') center / 100% 100% no-repeat;
+}
+
+.hero-map .hero-map-flag {
+  position: absolute;
+  top: 0.2415vw;
+  left: 50%;
+  width: 2.4155vw;
+  height: 2.4155vw;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.hero-map .hero-map-flag picture,
+.hero-map .hero-map-flag img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* accessible name only; logos/pins are decorative */
+.hero-map .hero-map-marker-name {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* markers whose country code has no known position are listed below the map */
+.hero-map .hero-map-markers-unplaced {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 0 2.3438vw;
+}
+
+.hero-map .hero-map-markers-unplaced .hero-map-marker-link {
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  gap: 1.2077vw;
+}
+
+/* title: lower-left, over the map */
+.hero-map .hero-map-content {
+  position: absolute;
+  left: 2.3438vw;
+  bottom: 7.2464vw;
+  width: 72.4638vw;
+}
+
+.hero-map .hero-map-content > * {
+  margin: 0;
+}
+
+.hero-map .hero-map-content h1 {
+  font-family: var(--heading-font-family);
+  font-size: 8.2126vw;
+  font-weight: 400;
+  line-height: 1;
+  color: rgb(7 158 63);
+}
+
+/* marker layout, mobile (source <= 540px) */
+.hero-map .marker-ca {
+  --top: 20%;
+  --left: 10.8%;
+  --dir: row-reverse;
+  --align: flex-start;
+  --gap: 1.2077vw;
+  --logo-w: 12.0773vw;
+}
+
+.hero-map .marker-us {
+  --top: 34.5%;
+  --left: 10%;
+  --dir: row-reverse;
+  --align: flex-start;
+  --gap: 1.2077vw;
+  --logo-w: 10.8696vw;
+}
+
+.hero-map .marker-mx {
+  --top: 48.2%;
+  --left: 2%;
+  --dir: column-reverse;
+  --align: flex-end;
+  --gap: 1.3021vw;
+  --logo-w: 9.5833vw;
+}
+
+.hero-map .marker-br {
+  --bottom: 15%;
+  --left: 7.4%;
+  --dir: column-reverse;
+  --align: flex-end;
+  --gap: 1.2077vw;
+  --logo-w: 18.1159vw;
+}
+
+.hero-map .marker-uk {
+  --top: 14%;
+  --left: 36%;
+  --dir: column;
+  --align: flex-end;
+  --gap: 0.2604vw;
+  --logo-w: 4.8309vw;
+}
+
+.hero-map .marker-nl {
+  --top: 21.3%;
+  --left: 47.2%;
+  --dir: row-reverse;
+  --align: flex-start;
+  --gap: 0.2604vw;
+  --pill-mt: -2.8986vw;
+  --logo-w: 7.2464vw;
+}
+
+.hero-map .marker-ge {
+  --top: 27.1%;
+  --left: 48%;
+  --dir: row-reverse;
+  --align: center;
+  --gap: 0;
+  --pill-mt: 0.5208vw;
+  --pin-scale: 0.7;
+  --logo-w: 10.8696vw;
+}
+
+.hero-map .marker-ch {
+  --top: 30.8%;
+  --left: 47.1%;
+  --dir: column-reverse;
+  --align: flex-start;
+  --gap: 0;
+  --pill-pad: 0.7246vw 1.9324vw;
+  --pin-scale: 0.65;
+  --logo-w: 2.8986vw;
+}
+
+.hero-map .marker-fr {
+  --top: 32%;
+  --left: 35.5%;
+  --dir: row;
+  --align: flex-end;
+  --gap: 0;
+  --pill-mt: 0.5208vw;
+  --pill-pad: 0.7246vw 1.2077vw;
+  --pin-scale: 0.65;
+  --logo-w: 6.0386vw;
+}
+
+.hero-map .marker-sa {
+  --bottom: -1%;
+  --right: 35.8%;
+  --dir: column-reverse;
+  --align: center;
+  --gap: 2.4155vw;
+  --logo-w: 18.1159vw;
+}
+
+.hero-map .marker-in {
+  --top: 49.1%;
+  --right: 26.8%;
+  --dir: row;
+  --align: flex-start;
+  --gap: 0.7812vw;
+  --pill-pad: 2.4155vw 1.2077vw;
+  --logo-w: 3.6232vw;
+}
+
+.hero-map .marker-ph {
+  --top: 40%;
+  --right: 4.5%;
+  --dir: column;
+  --align: center;
+  --gap: 1.2077vw;
+  --logo-w: 13.285vw;
+}
+
+.hero-map .marker-au {
+  --bottom: 16%;
+  --right: 9.5%;
+  --dir: row;
+  --align: flex-start;
+  --gap: 1.2077vw;
+  --logo-w: 13.285vw;
+}
+
+/* desktop (source > 540px): map box is 49.9479vw tall, the SVG is contained (centred) in it */
+@media (width > 540px) {
+  .hero-map {
+    padding-bottom: 0;
+  }
+
+  .hero-map .hero-map-stage {
+    height: 49.9479vw;
+  }
+
+  .hero-map .hero-map-map,
+  .hero-map .hero-map-map picture {
+    height: 100%;
+  }
+
+  .hero-map .hero-map-map img,
+  .hero-map .hero-map-map svg {
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: contain;
+    scale: none;
+  }
+
+  .hero-map .hero-map-logo {
+    padding: var(--pill-pad, 0.4167vw 0.7812vw);
+    border-radius: 2.6042vw;
+  }
+
+  .hero-map .hero-map-pin {
+    width: 0.9375vw;
+  }
+
+  .hero-map .hero-map-flag {
+    top: 0.0521vw;
+    width: 0.8333vw;
+    height: 0.8333vw;
+  }
+
+  .hero-map .hero-map-markers-unplaced .hero-map-marker-link {
+    gap: 0.5208vw;
+  }
+
+  .hero-map .hero-map-content {
+    bottom: 17%;
+    width: 26.0417vw;
+  }
+
+  .hero-map .hero-map-content h1 {
+    font-size: 3.4375vw;
+  }
+
+  .hero-map .marker-ca {
+    --top: 34.5%;
+    --left: 26.5%;
+    --gap: 0.5208vw;
+    --logo-w: 4.7396vw;
+  }
+
+  .hero-map .marker-us {
+    --top: 43%;
+    --left: 26.5%;
+    --gap: 0.5208vw;
+    --logo-w: 4.9479vw;
+  }
+
+  .hero-map .marker-mx {
+    --top: 50.2%;
+    --left: 13%;
+    --gap: 1.0417vw;
+  }
+
+  .hero-map .marker-br {
+    --bottom: 29%;
+    --left: 35.4%;
+    --dir: row-reverse;
+    --align: flex-start;
+    --gap: 1.0417vw;
+    --logo-w: 8.4375vw;
+  }
+
+  .hero-map .marker-uk {
+    --top: 32.5%;
+    --left: 39.8%;
+    --dir: row;
+    --align: flex-start;
+    --logo-w: 4.2188vw;
+  }
+
+  .hero-map .marker-nl {
+    --top: 32.3%;
+    --left: 48.2%;
+    --pill-mt: -1.3021vw;
+    --logo-w: 4.0104vw;
+  }
+
+  .hero-map .marker-ge {
+    --top: 34.1%;
+    --left: 49.4%;
+    --align: flex-start;
+    --gap: 0.2604vw;
+    --pin-scale: 1;
+    --logo-w: 5.9896vw;
+  }
+
+  .hero-map .marker-ch {
+    --top: 37.3%;
+    --left: 48.5%;
+    --gap: 0.2604vw;
+    --pill-pad: 0.4167vw 1.0417vw;
+    --pin-scale: 1;
+    --logo-w: 1.5625vw;
+  }
+
+  .hero-map .marker-fr {
+    --top: 38%;
+    --left: 41.5%;
+    --align: flex-start;
+    --gap: 0.2604vw;
+    --pill-mt: 1.3021vw;
+    --pill-pad: 0.4167vw 0.5208vw;
+    --pin-scale: 1;
+    --logo-w: 3.9062vw;
+    --logo-scale: 0.8;
+  }
+
+  .hero-map .marker-sa {
+    --bottom: 20.6%;
+    --right: 35.8%;
+    --dir: row-reverse;
+    --align: flex-start;
+    --gap: 0.2604vw;
+    --logo-w: 9.3229vw;
+  }
+
+  .hero-map .marker-in {
+    --top: 49.1%;
+    --right: 30%;
+    --dir: row-reverse;
+    --pill-pad: 1.3021vw 0.5208vw;
+    --logo-w: 2.3438vw;
+  }
+
+  .hero-map .marker-ph {
+    --top: 55%;
+    --right: 14.5%;
+    --dir: row-reverse;
+    --align: flex-start;
+    --gap: 0.5208vw;
+    --logo-w: 7.8646vw;
+  }
+
+  .hero-map .marker-au {
+    --bottom: 20%;
+    --right: 9.5%;
+    --dir: row-reverse;
+    --gap: 0.5208vw;
+    --logo-w: 7.5vw;
+  }
+}

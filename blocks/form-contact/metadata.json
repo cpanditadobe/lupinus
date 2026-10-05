@@ -1,0 +1,22 @@
+{
+  "variantName": "form-contact",
+  "baseBlock": "form",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light-green",
+    "density": "spacious",
+    "purpose": "contact-enquiry-form",
+    "imagePattern": "noimg",
+    "structure": "2-col text inputs + select + textarea + consent checkbox + pill submit"
+  },
+  "contentPattern": "Inline field rows (layout only, no submission backend yet). Row per field, cells: [Label] | [Type: text|email|tel|select|textarea|checkbox|submit] | [Name] | [Required: yes/no] | [Options or placeholder: for select, one option per line/paragraph with the default first; for checkbox, rich text label with links]. Fields from source: name (text, req), organization (text, req), email (email, req), number (tel, req), subject (select, req, 8 options, default \"Product | Quality\"), query (textarea, req), agree (checkbox, req, label links Privacy Statement + Terms of Use PDF), Submit. Optional row \"Action\" | <url> configures a submit endpoint later; optional row \"Message\" | <text> overrides the inline message. When no Action row is authored, submit performs client-side required/format validation then shows a neutral inline message (no network request). Never send data anywhere unless an Action row is authored.",
+  "usage": {
+    "pagesUsing": [
+      { "url": "https://www.lupin.com/US/contact-us", "instanceId": "4.2", "screenshot": "migration-work/screenshot.png" }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-05T00:00:00Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}
