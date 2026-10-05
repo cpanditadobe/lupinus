@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "url": "https://www.lupin.com/US/product",
+  "path": "us/product",
+  "timestamp": "2026-10-05T10:28:00.088Z",
+  "title": "Explore Our Products | Quality Medicines for Better Health.",
+  "template": "product",
+  "blocks": [
+    "hero-banner",
+    "cards-product",
+    "cards-link-tile",
+    "cards-link-tile"
+  ]
+}

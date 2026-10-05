@@ -102,6 +102,11 @@ export default async function decorate(block) {
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
+  // a nav authored as a single link list has no brand section; add an empty one
+  if (nav.children.length === 1 && nav.firstElementChild.querySelector('ul')) {
+    nav.prepend(document.createElement('div'));
+  }
+
   const classes = ['brand', 'sections', 'tools'];
   classes.forEach((c, i) => {
     const section = nav.children[i];

@@ -1,0 +1,79 @@
+{
+  "metadata": {
+    "projectType": "da"
+  },
+  "templates": [
+    {
+      "name": "product",
+      "urls": [
+        "https://www.lupin.com/US/product"
+      ],
+      "representativeUrl": "https://www.lupin.com/US/product",
+      "description": "Lupin US product listing page: hero banner, product catalog cards with client-side search/filter/pagination, and patient-education/HCP link tiles",
+      "blocks": [
+        {
+          "name": "hero-banner",
+          "instances": [
+            "section.product_listing_banner"
+          ]
+        },
+        {
+          "name": "cards-product",
+          "instances": [
+            "#product_listing .product_main_container"
+          ]
+        },
+        {
+          "name": "cards-link-tile",
+          "instances": [
+            "#patient-education .brand_container"
+          ]
+        }
+      ],
+      "urlPattern": "/US/*",
+      "sections": [
+        {
+          "id": "1",
+          "name": "Page banner",
+          "selector": [
+            "section.product_listing_banner"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-banner"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "2",
+          "name": "Product catalog",
+          "selector": [
+            "section.product_filter",
+            "#product_listing"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-product"
+          ],
+          "defaultContent": [
+            "#product_listing > p.product_para"
+          ]
+        },
+        {
+          "id": "3",
+          "name": "Explore patient education / HCP information",
+          "selector": [
+            "#patient-education"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-link-tile"
+          ],
+          "defaultContent": [
+            "#patient-education > div > div.subtitle_30"
+          ]
+        }
+      ]
+    }
+  ]
+}

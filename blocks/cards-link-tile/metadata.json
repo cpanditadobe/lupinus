@@ -1,0 +1,24 @@
+{
+  "variantName": "cards-link-tile",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "link-tiles",
+    "imagePattern": "noimg",
+    "structure": "link text + arrow icon",
+    "layout": "centered row of bordered tiles (up to 4 per row)"
+  },
+  "contentPattern": "One row per tile, 1 cell: paragraph link (tile text, href to product anchor)",
+  "usage": {
+    "pagesUsing": [
+      { "url": "https://www.lupin.com/US/product", "instanceId": "3.2", "screenshot": "migration-work/screenshot.png" },
+      { "url": "https://www.lupin.com/US/product", "instanceId": "3.4", "screenshot": "migration-work/screenshot.png" }
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-10-05T00:00:00Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

@@ -1,0 +1,11 @@
+{
+  "type": "da",
+  "sites": {
+    "lupinus": {
+      "previewOrg": "cpanditadobe",
+      "previewSite": "lupinus",
+      "contentHostUrl": "https://content.da.live/cpanditadobe/lupinus/",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  }
+}

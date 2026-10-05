@@ -1,0 +1,22 @@
+/* brand tokens extracted from https://www.lupin.com/US/product */
+:root {
+  /* colors */
+  --background-color: #fff;
+  --light-color: #f9fcfa; /* rgba(7, 162, 65, 0.03) on white */
+  --dark-color: #058a37;
+  --text-color: rgb(0 0 0 / 80%);
+  --link-color: #07a241;
+  --link-hover-color: #058a37;
+  --brand-green: #07a241;
+  --brand-green-light: #6ac78d;
+  --brand-green-border: #189e53;
+
+  /* fonts */
+  --heading-font-family: helvetica-black, helvetica-black-fallback, "Helvetica Neue", arial, sans-serif;
+  --body-font-family: swiss-roman, swiss-roman-fallback, "Helvetica Neue", arial, sans-serif;
+
+  /* spacing */
+  --section-padding: 0;
+  --content-max-width: 1200px;
+  --nav-height: 60px;
+}

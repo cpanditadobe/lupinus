@@ -1,0 +1,23 @@
+{
+  "variantName": "cards-product",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "product-catalog",
+    "imagePattern": "boxed-product-image",
+    "structure": "image + view-more cta + linked heading + pdf pill links",
+    "layout": "2-column grid; client-side search, category/letter filter, grid/list toggle, pagination"
+  },
+  "contentPattern": "One row per product, 2 cells: [product image] | [h2 linked product name (href = product detail page), then paragraph links to PDFs: Download Safety Data Sheet / Package Insert / Medication Guide / Package Insert & Med Guide]. Optional 3rd cell: comma-separated categories (enables the category filter). Search inputs, A-Z letter filter, item count, grid/list toggle and pagination (12 per page) are rendered client-side.",
+  "usage": {
+    "pagesUsing": [
+      { "url": "https://www.lupin.com/US/product", "instanceId": "2.1-2.4", "screenshot": "migration-work/screenshot.png" }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-05T00:00:00Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

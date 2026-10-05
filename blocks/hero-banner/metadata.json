@@ -1,0 +1,22 @@
+{
+  "variantName": "hero-banner",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark-overlay",
+    "density": "minimal",
+    "purpose": "page-title-banner",
+    "imagePattern": "full-bleed-background",
+    "structure": "background image + h1"
+  },
+  "contentPattern": "1 row, 1 cell: picture (banner image) + h1 'Our Products'",
+  "usage": {
+    "pagesUsing": [
+      { "url": "https://www.lupin.com/US/product", "instanceId": "1.1", "screenshot": "migration-work/screenshot.png" }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-05T00:00:00Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

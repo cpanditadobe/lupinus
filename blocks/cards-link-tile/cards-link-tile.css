@@ -1,0 +1,88 @@
+/* cards-link-tile: values extracted from lupin.com/US/product #patient-education .brand_container
+ * mobile values = source @ 390px viewport, desktop values = source @ 1440px viewport */
+.cards-link-tile > ul {
+  list-style: none;
+  margin: 18.84px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18.84px;
+}
+
+.cards-link-tile .cards-link-tile-item {
+  display: block;
+  width: 70%;
+}
+
+.cards-link-tile .cards-link-tile-tile {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 28.26px 47.1px 18.84px 18.84px;
+  border: 1px solid var(--brand-green-border);
+  border-radius: 3.05px;
+  color: var(--brand-green-border);
+  text-decoration: none;
+  transition: 0.3s ease-in;
+}
+
+.cards-link-tile a.cards-link-tile-tile:hover,
+.cards-link-tile a.cards-link-tile-tile:focus-visible {
+  color: var(--brand-green-border);
+  text-decoration: none;
+  scale: 1.1;
+}
+
+/* source renders the label inline inside a 21px line box (14px/21px tile strut);
+ * a block label with a 21px line-height reproduces the same line pitch and
+ * glyph offset without depending on the strut (which quirks mode drops) */
+.cards-link-tile .cards-link-tile-label {
+  display: block;
+  margin: 2px 0 -2px;
+  font-family: var(--heading-font-family);
+  font-size: 15.07px;
+  font-weight: 400;
+  line-height: 21px;
+  color: var(--brand-green-border);
+}
+
+/* source arrow icon (up_arrow.webp, 57x62) in the top-right corner */
+.cards-link-tile .cards-link-tile-arrow {
+  position: absolute;
+  top: 23.55px;
+  right: 18.84px;
+  width: 18.83px;
+  aspect-ratio: 57 / 62;
+  background: url('./up-arrow.webp') center / contain no-repeat;
+}
+
+@media (width >= 900px) {
+  .cards-link-tile > ul {
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 18.75px;
+    margin-top: 22.5px;
+  }
+
+  .cards-link-tile .cards-link-tile-item {
+    width: min(262.5px, calc((100% - 56.25px) / 4));
+  }
+
+  .cards-link-tile .cards-link-tile-tile {
+    height: 130.86px; /* source: inline height 9.0882vw @1440 */
+    padding: 45px 52.5px 22.5px 22.5px;
+    border-radius: 11.25px;
+  }
+
+  .cards-link-tile .cards-link-tile-label {
+    font-size: 15px;
+  }
+
+  .cards-link-tile .cards-link-tile-arrow {
+    top: 36px;
+    right: 22.5px;
+    width: 18.75px;
+  }
+}
