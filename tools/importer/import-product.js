@@ -160,11 +160,13 @@ export default {
     WebImporter.rules.transformBackgroundImages(main, document);
     WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
 
-    // 6. Sanitized path (root maps to /index)
+    // 6. Sanitized path (root maps to /index); the product listing lives at /us/hcpportal
+    const PATH_OVERRIDES = { '/us/product': '/us/hcpportal' };
     const rawPath = new URL(params.originalURL).pathname
       .replace(/\/$/, '')
       .replace(/\.html?$/, '');
-    const path = WebImporter.FileUtils.sanitizePath(rawPath === '' ? '/index' : rawPath);
+    const sanitized = WebImporter.FileUtils.sanitizePath(rawPath === '' ? '/index' : rawPath);
+    const path = PATH_OVERRIDES[sanitized] || sanitized;
 
     return [{
       element: main,

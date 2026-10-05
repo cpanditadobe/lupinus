@@ -57,12 +57,12 @@ var CustomImportScript = (() => {
       cells.push([img]);
     }
     if (heading) {
-      let h1 = heading;
-      if (heading.tagName !== "H1") {
-        h1 = document2.createElement("h1");
-        h1.textContent = heading.textContent.trim();
+      let title = heading;
+      if (!/^H[1-6]$/.test(heading.tagName)) {
+        title = document2.createElement("h2");
+        title.textContent = heading.textContent.trim();
       }
-      cells.push([h1]);
+      cells.push([title]);
     }
     const block = WebImporter.Blocks.createBlock(document2, { name: "hero-banner", cells });
     element.replaceWith(block);
@@ -155,23 +155,84 @@ var CustomImportScript = (() => {
 
   // tools/importer/transformers/lupin-cleanup.js
   var TransformHook = { beforeTransform: "beforeTransform", afterTransform: "afterTransform" };
+  var CONTENT_SECTIONS = [
+    // product
+    "section.product_listing_banner",
+    "#product_listing",
+    "#patient-education",
+    // contact-us
+    "section.contact_banner",
+    "section.contact_address",
+    "section.contact_location",
+    "section.contact_form",
+    "section.media_contact",
+    // product-detail
+    "section.product_detail_section",
+    "#HCP",
+    "#info-1",
+    "#info-2",
+    "div.product_popup"
+  ].join(", ");
+  var PDF_ORIGIN = "https://www.lupin.com";
   function removeAll(root, selector) {
     root.querySelectorAll(selector).forEach((el) => el.remove());
   }
+  function isProductDetail(element, payload) {
+    const name = payload && payload.template && payload.template.name;
+    if (name) return name === "product-detail";
+    return !!element.querySelector("section.product_detail_section");
+  }
   function transform(hookName, element, payload) {
+    const productDetail = isProductDetail(element, payload);
     if (hookName === TransformHook.beforeTransform) {
       const overlayMarkers = ["a.sticky_guide", "#popup", "#cookies_popup", "#gpcBanner", "#privacyPopup"];
       overlayMarkers.forEach((sel) => {
         const marker = element.querySelector(sel);
         if (!marker) return;
         const wrapperDiv = marker.closest("#wrapper > div");
-        if (wrapperDiv && !wrapperDiv.querySelector("section.product_listing_banner, #product_listing, #patient-education")) {
+        if (wrapperDiv && !wrapperDiv.querySelector(CONTENT_SECTIONS)) {
           wrapperDiv.remove();
         } else {
           marker.remove();
         }
       });
+      if (productDetail) {
+        removeAll(element, "div.guide_popup.disclaimer_popup");
+        removeAll(element, "div.isi_section > div.show_button");
+        removeAll(element, "div.flower_bg_container");
+        removeAll(element, "div.patient_active, div.hcp_active");
+        element.querySelectorAll("div.product_popup").forEach((popup) => {
+          removeAll(popup, "a.close_btn");
+          popup.querySelectorAll("pre").forEach((pre) => {
+            const p = document.createElement("p");
+            p.textContent = pre.textContent.trim();
+            pre.replaceWith(p);
+          });
+          popup.querySelectorAll("div.contact_terms").forEach((terms) => {
+            const nodes = [];
+            terms.querySelectorAll("label").forEach((label) => {
+              label.querySelectorAll("input").forEach((input) => input.remove());
+              const text = label.textContent.trim();
+              if (text) {
+                const p = document.createElement("p");
+                p.textContent = text;
+                nodes.push(p);
+              }
+            });
+            terms.querySelectorAll("a").forEach((a) => {
+              const p = document.createElement("p");
+              p.append(a);
+              nodes.push(p);
+            });
+            if (nodes.length) terms.replaceChildren(...nodes);
+          });
+        });
+      }
       element.querySelectorAll("section.product_filter").forEach((filter) => {
+        if (productDetail) {
+          filter.remove();
+          return;
+        }
         const pdfLink = filter.querySelector('a.tab_link[href$=".pdf"]');
         if (pdfLink) {
           const p = document.createElement("p");
@@ -184,6 +245,22 @@ var CustomImportScript = (() => {
       removeAll(element, "#product_listing > div.product_nav");
       removeAll(element, "#product_listing > div.product_pagination");
       removeAll(element, "#product_listing div.product_table_container");
+      element.querySelectorAll("section.contact_address .lupin_contact").forEach((contact) => {
+        const lines = [];
+        let label = "";
+        contact.childNodes.forEach((node) => {
+          if (node.nodeType === 1 && node.tagName === "A") {
+            const p = document.createElement("p");
+            if (label) p.append(`${label} `);
+            p.append(node.cloneNode(true));
+            lines.push(p);
+            label = "";
+          } else if (node.textContent.trim()) {
+            label = node.textContent.trim();
+          }
+        });
+        if (lines.length) contact.replaceChildren(...lines);
+      });
     }
     if (hookName === TransformHook.afterTransform) {
       const header = element.querySelector("header.header_bg");
@@ -208,6 +285,14 @@ var CustomImportScript = (() => {
         "script",
         "style"
       ]);
+      if (productDetail) {
+        element.querySelectorAll('a[href*=".pdf"]').forEach((a) => {
+          const href = a.getAttribute("href") || "";
+          if (href.charAt(0) === "/" && href.charAt(1) !== "/") {
+            a.setAttribute("href", PDF_ORIGIN + href);
+          }
+        });
+      }
     }
   }
 
@@ -222,30 +307,51 @@ var CustomImportScript = (() => {
     }
     return null;
   }
+  function isPresent(value) {
+    return value !== void 0 && value !== null && String(value).trim() !== "";
+  }
+  function sectionMetadataCells(section) {
+    const cells = {};
+    if (isPresent(section.style)) cells.style = String(section.style);
+    const meta = section.metadata;
+    if (meta && typeof meta === "object") {
+      Object.keys(meta).forEach((key) => {
+        if (!isPresent(meta[key])) return;
+        if (key === "style" && cells.style) return;
+        cells[key] = String(meta[key]);
+      });
+    }
+    return cells;
+  }
+  function needsMetadata(section) {
+    return Object.keys(sectionMetadataCells(section)).length > 0;
+  }
   function transform2(hookName, element, payload) {
     const sections = payload && payload.template && payload.template.sections || [];
     if (sections.length < 2) return;
     if (hookName === "beforeTransform") {
       for (let i = sections.length - 1; i >= 0; i -= 1) {
         const section = sections[i];
-        if (i === 0 && !section.style) continue;
+        const withMetadata = needsMetadata(section);
+        if (i === 0 && !withMetadata) continue;
         const sectionEl = querySection(element, section.selector);
         if (!sectionEl) continue;
         const hr = document.createElement("hr");
-        if (section.style) hr.setAttribute(SECTION_MARKER_ATTR, section.id);
+        if (withMetadata) hr.setAttribute(SECTION_MARKER_ATTR, section.id);
         sectionEl.before(hr);
       }
     }
     if (hookName === "afterTransform") {
       for (let i = sections.length - 1; i >= 0; i -= 1) {
         const section = sections[i];
-        if (!section.style) continue;
+        const cells = sectionMetadataCells(section);
+        if (!Object.keys(cells).length) continue;
         const marker = element.querySelector(`[${SECTION_MARKER_ATTR}="${section.id}"]`);
         const anchor = marker || querySection(element, section.selector);
         if (!anchor) continue;
         const metadataBlock = WebImporter.Blocks.createBlock(document, {
           name: "Section Metadata",
-          cells: { style: section.style }
+          cells
         });
         anchor.after(metadataBlock);
         if (marker) {
@@ -371,8 +477,10 @@ var CustomImportScript = (() => {
       WebImporter.rules.createMetadata(main, document2);
       WebImporter.rules.transformBackgroundImages(main, document2);
       WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
+      const PATH_OVERRIDES = { "/us/product": "/us/hcpportal" };
       const rawPath = new URL(params.originalURL).pathname.replace(/\/$/, "").replace(/\.html?$/, "");
-      const path = WebImporter.FileUtils.sanitizePath(rawPath === "" ? "/index" : rawPath);
+      const sanitized = WebImporter.FileUtils.sanitizePath(rawPath === "" ? "/index" : rawPath);
+      const path = PATH_OVERRIDES[sanitized] || sanitized;
       return [{
         element: main,
         path,
