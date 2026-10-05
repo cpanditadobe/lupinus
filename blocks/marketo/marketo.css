@@ -1,0 +1,17 @@
+/* marketo: embedded Marketo form, centred in the section */
+.marketo {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.marketo .marketo-form {
+  min-height: 40px;
+}
+
+/* Marketo sets inline widths on the form, so override them */
+.marketo .marketo-form form {
+  box-sizing: border-box;
+  width: 100% !important;
+  padding: 0 !important;
+  font-family: var(--body-font-family) !important;
+}

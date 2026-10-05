@@ -1,5 +1,4 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
-import { decorateMarketoForm, getMarketoConfig } from '../../scripts/marketo.js';
 
 /*
  * Product detail: product photo beside the product name, a label/value spec list,
@@ -11,7 +10,6 @@ import { decorateMarketoForm, getMarketoConfig } from '../../scripts/marketo.js'
  *      bullet list, one item per spec: "<strong>Label</strong>: value";
  *      paragraphs with bold links (green pills) to the PDFs;
  *      paragraph with an italic link "Download Co-pay Savings Card" (#copay-terms);
- *      optional paragraph with a Marketo form link (?munchkinId=…&formId=…), rendered as the form;
  *      paragraph with a plain link "General Terms & Conditions" (#copay-terms)]
  *
  * Bold-link paragraphs (button primary) go to the documents group; any other paragraph
@@ -199,12 +197,6 @@ export default function decorate(block) {
     if (copay.children.length) actions.append(copay);
     info.append(actions);
   }
-
-  // a link carrying Marketo form settings (munchkinId + formId) becomes the embedded form
-  copay.querySelectorAll('p > a[href]').forEach((a) => {
-    const config = getMarketoConfig(a);
-    if (config) decorateMarketoForm(a.closest('p'), config);
-  });
 
   info.querySelectorAll('a[href*="#"]').forEach((a) => bindDialogLink(a));
 
