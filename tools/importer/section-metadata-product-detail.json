@@ -1,0 +1,66 @@
+{
+  "4": {
+    "Id": "HCP"
+  },
+  "5": {
+    "Tab": "patient"
+  },
+  "6": {
+    "Tab": "patient",
+    "Id": "about"
+  },
+  "7": {
+    "Tab": "patient",
+    "Id": "take"
+  },
+  "8": {
+    "Tab": "patient"
+  },
+  "9": {
+    "Tab": "patient",
+    "Id": "specialtypharmacy"
+  },
+  "10": {
+    "Tab": "patient",
+    "Id": "faq"
+  },
+  "11": {
+    "Tab": "patient",
+    "Id": "card"
+  },
+  "12": {
+    "Tab": "patient"
+  },
+  "13": {
+    "Tab": "hcp"
+  },
+  "14": {
+    "Tab": "hcp",
+    "Id": "dosing"
+  },
+  "15": {
+    "Tab": "hcp"
+  },
+  "16": {
+    "Tab": "hcp",
+    "Id": "admin"
+  },
+  "17": {
+    "Tab": "hcp",
+    "Id": "specialty"
+  },
+  "18": {
+    "Tab": "hcp",
+    "Id": "faq-1"
+  },
+  "19": {
+    "Tab": "hcp",
+    "Id": "card-1"
+  },
+  "20": {
+    "Tab": "hcp"
+  },
+  "21": {
+    "Id": "copay-terms"
+  }
+}

@@ -1,0 +1,272 @@
+/*
+ * columns-product-detail: boxed product photo beside the product name, a label : value spec
+ * list, stacked PDF pills and the co-pay actions.
+ * Values come from the source (lupin.com/US/product/<product>, section.product_detail_section).
+ * The source scales everything with the viewport width, so sizes are kept in vw (measured px /
+ * viewport, e.g. 35.19px / 1440px = 2.44375vw). The source stacks at 540px; between 541px and
+ * 899px the stacked (mobile) values are capped at their 540px size with min().
+ *
+ * Decorated DOM (see columns-product-detail.js):
+ *   .columns-product-detail-media > picture > img
+ *   .columns-product-detail-info > h1
+ *     + dl.columns-product-detail-specs > .columns-product-detail-spec > dt + dd
+ *     + .columns-product-detail-actions > .columns-product-detail-docs (p > a.button.primary)
+ *                                       + .columns-product-detail-copay (p > a.button, p > a)
+ */
+
+/* Helvetica LT Std Bold, used by the source for the spec list (served by lupin.com, CORS enabled) */
+
+/* mobile: photo box above the info */
+.columns-product-detail {
+  display: flex;
+  flex-direction: column;
+  gap: min(5.7292vw, 30.94px);
+  color: var(--text-color);
+}
+
+.columns-product-detail > div {
+  width: 100%;
+  min-width: 0;
+}
+
+.columns-product-detail .columns-product-detail-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid rgb(153 217 177);
+  border-radius: min(0.5208vw, 2.81px);
+}
+
+.columns-product-detail .columns-product-detail-media picture,
+.columns-product-detail .columns-product-detail-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.columns-product-detail .columns-product-detail-info h1 {
+  width: 100%;
+  margin: 0 0 min(4.6875vw, 25.31px);
+  font-size: min(5.7971vw, 31.3px);
+  line-height: 1.2;
+  color: var(--text-color);
+}
+
+/* spec list: "Label   :   value" */
+.columns-product-detail .columns-product-detail-specs {
+  margin: 0;
+  padding: 0;
+  font-family: helvetica-bold, "Helvetica Neue", helvetica, arial, sans-serif;
+  font-size: min(3.3816vw, 18.26px);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.columns-product-detail .columns-product-detail-spec {
+  display: flex;
+  align-items: flex-start;
+
+  /* title | gap | ":" (about 0.3em wide) | gap | value */
+  column-gap: calc(2 * min(2.4155vw, 13.04px) + 0.3em);
+  margin-bottom: min(3.6232vw, 19.57px);
+}
+
+.columns-product-detail .columns-product-detail-spec:last-child {
+  margin-bottom: 0;
+}
+
+.columns-product-detail .columns-product-detail-spec dt,
+.columns-product-detail .columns-product-detail-spec dd {
+  margin: 0;
+}
+
+.columns-product-detail .columns-product-detail-spec dt {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(33.8164vw, 182.61px);
+  letter-spacing: 1px;
+  color: rgb(7 158 63);
+}
+
+.columns-product-detail .columns-product-detail-spec dt::after {
+  content: ":";
+  position: absolute;
+  top: 0;
+  left: calc(100% + min(2.4155vw, 13.04px));
+  letter-spacing: normal;
+  color: rgb(43 42 41);
+}
+
+.columns-product-detail .columns-product-detail-spec dd {
+  flex: 0 1 auto;
+  width: min(48.3092vw, 260.87px);
+  margin-left: min(2.0833vw, 11.25px);
+  color: rgb(51 51 51);
+}
+
+/* actions: PDF pills, then the co-pay card and terms */
+.columns-product-detail .columns-product-detail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: min(7.2464vw, 39.13px);
+  margin-top: min(6.0386vw, 32.61px);
+}
+
+.columns-product-detail .columns-product-detail-docs,
+.columns-product-detail .columns-product-detail-copay {
+  width: 100%;
+  min-width: 0;
+}
+
+.columns-product-detail .columns-product-detail-docs p,
+.columns-product-detail .columns-product-detail-copay p {
+  margin: 0;
+}
+
+main .columns-product-detail .columns-product-detail-actions a.button:any-link {
+  display: block;
+  width: 100%;
+  margin: 0 0 min(1.9324vw, 10.43px);
+  border: 1px solid var(--brand-green-light);
+  border-radius: min(6.0386vw, 32.61px);
+  padding: min(2.4155vw, 13.04px) min(3.6232vw, 19.57px);
+  font-size: min(2.4155vw, 13.04px);
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.3s ease-in;
+}
+
+/* PDF pills: filled green, inverted on hover */
+main .columns-product-detail .columns-product-detail-docs a.button:any-link {
+  background-color: var(--brand-green);
+  color: var(--background-color);
+}
+
+main .columns-product-detail .columns-product-detail-docs a.button:hover,
+main .columns-product-detail .columns-product-detail-docs a.button:focus-visible {
+  border-color: var(--brand-green-light);
+  background-color: var(--background-color);
+  color: var(--brand-green);
+}
+
+/* co-pay card: outlined, filled on hover */
+main .columns-product-detail .columns-product-detail-copay a.button:any-link {
+  font-size: min(3.3816vw, 18.26px);
+  background-color: var(--background-color);
+  color: var(--brand-green);
+}
+
+main .columns-product-detail .columns-product-detail-copay a.button:hover,
+main .columns-product-detail .columns-product-detail-copay a.button:focus-visible {
+  border-color: var(--brand-green-light);
+  background-color: var(--brand-green);
+  color: var(--background-color);
+}
+
+/* "General Terms & Conditions": centred body text (opens the terms dialog) */
+.columns-product-detail .columns-product-detail-copay p:not(.button-wrapper) {
+  font-size: min(3.8647vw, 20.87px);
+  line-height: 1.3;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.columns-product-detail .columns-product-detail-copay p:not(.button-wrapper) a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (width >= 900px) {
+  /* fixed-size photo box beside the info column */
+  .columns-product-detail {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 5.7292vw;
+  }
+
+  .columns-product-detail .columns-product-detail-media {
+    flex: 0 0 22.1517vw;
+    width: 22.1517vw;
+    height: 34.6875vw;
+    border-radius: 0.5208vw;
+  }
+
+  .columns-product-detail .columns-product-detail-info {
+    flex: 0 1 43.2129vw;
+  }
+
+  .columns-product-detail.no-image .columns-product-detail-info {
+    flex: 1 1 auto;
+  }
+
+  .columns-product-detail .columns-product-detail-info h1 {
+    width: 26.0417vw;
+    max-width: 100%;
+    margin-bottom: 4.6875vw;
+    font-size: 2.4438vw;
+  }
+
+  .columns-product-detail .columns-product-detail-specs {
+    font-size: 1.1349vw;
+  }
+
+  .columns-product-detail .columns-product-detail-spec {
+    column-gap: calc(2 * 1.5625vw + 0.3em);
+    margin-bottom: 1.5625vw;
+  }
+
+  .columns-product-detail .columns-product-detail-spec dt {
+    width: 13.75vw;
+  }
+
+  .columns-product-detail .columns-product-detail-spec dt::after {
+    left: calc(100% + 1.5625vw);
+  }
+
+  .columns-product-detail .columns-product-detail-spec dd {
+    width: 17.1875vw;
+    margin-left: 2.0833vw;
+  }
+
+  /* PDF pills (as wide as the longest one) beside the co-pay column */
+  .columns-product-detail .columns-product-detail-actions {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2.6042vw;
+    margin-top: 2.6042vw;
+  }
+
+  /* min-width: the source pill column (230px @1440, set in the wider Inter face) */
+  .columns-product-detail .columns-product-detail-docs {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 15.9757vw;
+  }
+
+  .columns-product-detail .columns-product-detail-copay {
+    flex: 1 1 0;
+  }
+
+  main .columns-product-detail .columns-product-detail-actions a.button:any-link {
+    margin-bottom: 0.4167vw;
+    border-radius: 2.6042vw;
+    padding: 0.7813vw 1.5625vw;
+    font-size: 0.6292vw;
+  }
+
+  main .columns-product-detail .columns-product-detail-docs a.button:any-link {
+    text-align: left;
+  }
+
+  main .columns-product-detail .columns-product-detail-copay a.button:any-link {
+    font-size: 1.0417vw;
+  }
+
+  .columns-product-detail .columns-product-detail-copay p:not(.button-wrapper) {
+    font-size: 1.0417vw;
+  }
+}

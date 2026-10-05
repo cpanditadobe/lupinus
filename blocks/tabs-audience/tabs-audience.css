@@ -1,0 +1,105 @@
+/*
+ * tabs-audience: full-bleed light grey band with two equal full-width tab buttons
+ * (active: solid green / white text; inactive: white). Values from source computed styles
+ * (mobile = 390px, desktop = 1440px).
+ * The tab bar lives in the block; the panels are siblings of the block's section, directly
+ * in <main>, each holding the moved sections. Because the moved sections are no longer
+ * `main > .section`, the base section box rules from styles.css are mirrored for them here
+ * at lower specificity (:where), so section styles (light-green, ...) and full-bleed block
+ * wrappers keep overriding them as they do for top-level sections.
+ */
+
+/* full-bleed grey band directly above the panels (source: no gap above/below the band) */
+main > .section.tabs-audience-container {
+  margin-block: 0;
+}
+
+.tabs-audience-container .tabs-audience-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.tabs-audience {
+  padding: 23.5px 14px;
+  background-color: rgb(242 245 247);
+}
+
+.tabs-audience .tabs-audience-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tabs-audience .tabs-audience-tab {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  padding: 9.4px;
+  border: 0;
+  border-radius: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font: inherit;
+  font-family: var(--heading-font-family);
+  font-size: 12.25px;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  white-space: normal;
+  cursor: pointer;
+}
+
+.tabs-audience .tabs-audience-tab:hover {
+  background-color: #f6fcf8;
+}
+
+.tabs-audience .tabs-audience-tab[aria-selected="true"] {
+  background-color: rgb(7 158 63);
+  color: #fff;
+  cursor: default;
+}
+
+.tabs-audience .tabs-audience-tab:focus-visible {
+  outline: 2px solid var(--brand-green);
+  outline-offset: 2px;
+}
+
+.tabs-audience .tabs-audience-tab p {
+  margin: 0;
+}
+
+@media (width >= 900px) {
+  .tabs-audience {
+    padding: 37.5px 75px;
+  }
+
+  .tabs-audience .tabs-audience-tab {
+    padding: 15px 22.5px;
+    font-size: 22.5px;
+  }
+}
+
+/* panels (siblings of the block's section); reset the pre-decoration `main > div` margin */
+main > .tabs-audience-panel {
+  margin: 0;
+}
+
+main > .tabs-audience-panel[hidden] {
+  display: none;
+}
+
+main > .tabs-audience-panel > :where(.section) {
+  margin: 40px 0;
+}
+
+main > .tabs-audience-panel > :where(.section) > div {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 24px;
+}
+
+@media (width >= 900px) {
+  main > .tabs-audience-panel > :where(.section) > div {
+    padding: 0 32px;
+  }
+}

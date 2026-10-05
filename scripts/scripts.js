@@ -10,6 +10,9 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
+  readBlockConfig,
+  toCamelCase,
+  toClassName,
 } from './aem.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
@@ -143,6 +146,33 @@ function decorateButtons(main) {
 }
 
 /**
+ * Applies Section Metadata to each section (the vendored aem.js does not):
+ * `style` adds classes, other keys become data attributes, and `id` sets the section id
+ * so in-page anchors (e.g. #HCP) resolve. Published pages already carry these as
+ * attributes, so only the id needs applying there.
+ * @param {Element} main The main element
+ */
+function decorateSectionMetadata(main) {
+  main.querySelectorAll(':scope > div.section').forEach((section) => {
+    const meta = section.querySelector('div.section-metadata');
+    if (meta) {
+      Object.entries(readBlockConfig(meta)).forEach(([key, value]) => {
+        if (key === 'style') {
+          String(value).split(',').map((v) => toClassName(v.trim())).filter(Boolean)
+            .forEach((style) => section.classList.add(style));
+        } else {
+          section.dataset[toCamelCase(key)] = value;
+        }
+      });
+      const wrapper = meta.parentElement;
+      meta.remove();
+      if (wrapper !== section && !wrapper.children.length) wrapper.remove();
+    }
+    if (section.dataset.id && !section.id) section.id = section.dataset.id;
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -151,6 +181,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionMetadata(main);
   decorateBlocks(main);
   decorateButtons(main);
 }

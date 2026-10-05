@@ -8,7 +8,15 @@
  * #product_listing, #patient-education) verified in the product cleaned.html;
  * contact-us selectors (section.contact_banner, section.contact_address,
  * section.contact_location, section.contact_form [style: light-green],
- * section.media_contact) verified in the contact-us cleaned.html.
+ * section.media_contact) verified in the contact-us cleaned.html;
+ * product-detail selectors (section.product_detail_section, #HCP, #info-1 / #info-2
+ * children, #about, #take, #specialtypharmacy, #faq, #card, #dosing, #admin,
+ * #specialty, #faq-1, #card-1, div.product_popup) verified in the product-detail cleaned.html.
+ *
+ * Section Metadata rows: `style` (emitted verbatim, may contain commas, e.g.
+ * "light-green, flower") plus any extra rows from `section.metadata`
+ * (e.g. { "Tab": "patient", "Id": "about" } - merged by the import script from
+ * tools/importer/section-metadata-<template>.json). Key names are kept as given.
  *
  * Breaks are inserted in beforeTransform (before parsers replace section elements);
  * Section Metadata is inserted in afterTransform, anchored to a marker <hr>.
@@ -26,6 +34,29 @@ function querySection(root, selectors) {
   return null;
 }
 
+function isPresent(value) {
+  return value !== undefined && value !== null && String(value).trim() !== '';
+}
+
+// Ordered Section Metadata cells: style first, then section.metadata entries as given.
+function sectionMetadataCells(section) {
+  const cells = {};
+  if (isPresent(section.style)) cells.style = String(section.style);
+  const meta = section.metadata;
+  if (meta && typeof meta === 'object') {
+    Object.keys(meta).forEach((key) => {
+      if (!isPresent(meta[key])) return;
+      if (key === 'style' && cells.style) return; // never override the template style
+      cells[key] = String(meta[key]);
+    });
+  }
+  return cells;
+}
+
+function needsMetadata(section) {
+  return Object.keys(sectionMetadataCells(section)).length > 0;
+}
+
 export default function transform(hookName, element, payload) {
   const sections = (payload && payload.template && payload.template.sections) || [];
   if (sections.length < 2) return;
@@ -33,12 +64,13 @@ export default function transform(hookName, element, payload) {
   if (hookName === 'beforeTransform') {
     for (let i = sections.length - 1; i >= 0; i -= 1) {
       const section = sections[i];
-      if (i === 0 && !section.style) continue;
+      const withMetadata = needsMetadata(section);
+      if (i === 0 && !withMetadata) continue;
       const sectionEl = querySection(element, section.selector);
       if (!sectionEl) continue;
 
       const hr = document.createElement('hr');
-      if (section.style) hr.setAttribute(SECTION_MARKER_ATTR, section.id);
+      if (withMetadata) hr.setAttribute(SECTION_MARKER_ATTR, section.id);
       sectionEl.before(hr);
     }
   }
@@ -46,7 +78,8 @@ export default function transform(hookName, element, payload) {
   if (hookName === 'afterTransform') {
     for (let i = sections.length - 1; i >= 0; i -= 1) {
       const section = sections[i];
-      if (!section.style) continue;
+      const cells = sectionMetadataCells(section);
+      if (!Object.keys(cells).length) continue;
 
       const marker = element.querySelector(`[${SECTION_MARKER_ATTR}="${section.id}"]`);
       const anchor = marker || querySection(element, section.selector);
@@ -54,7 +87,7 @@ export default function transform(hookName, element, payload) {
 
       const metadataBlock = WebImporter.Blocks.createBlock(document, {
         name: 'Section Metadata',
-        cells: { style: section.style },
+        cells,
       });
       anchor.after(metadataBlock);
 

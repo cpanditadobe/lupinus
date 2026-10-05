@@ -1,0 +1,24 @@
+{
+  "status": "success",
+  "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+  "path": "us/product/glycerol-phenylbutyrate-oral-liquid",
+  "timestamp": "2026-10-05T17:10:00.610Z",
+  "title": "Glycerol Phenylbutyrate Oral Liquid",
+  "template": "product-detail",
+  "blocks": [
+    "hero-banner",
+    "columns-product-detail",
+    "tabs-audience",
+    "columns-anchor-nav",
+    "columns-anchor-nav",
+    "hero-green-panel",
+    "hero-green-panel",
+    "columns-icon-tips",
+    "cards-pharmacy",
+    "cards-pharmacy",
+    "accordion-faq",
+    "accordion-faq",
+    "columns-cta-banner",
+    "columns-cta-banner"
+  ]
+}

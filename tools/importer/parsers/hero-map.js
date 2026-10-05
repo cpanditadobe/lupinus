@@ -125,9 +125,14 @@ export default function parse(element, { document }) {
       pictureCell.push(makeImg(document, flagImg.src || flagImg.getAttribute('src'), `${code} flag`));
     }
 
-    const link = document.createElement('a');
-    link.setAttribute('href', href);
-    link.textContent = companyName;
+    // current-site markers ("#") are emitted as plain text: "#" links get rewritten to "/"
+    // on upload, which would turn them into links to the home page
+    let link = companyName;
+    if (href !== '#') {
+      link = document.createElement('a');
+      link.setAttribute('href', href);
+      link.textContent = companyName;
+    }
 
     cells.push([code, pictureCell.length ? pictureCell : '', link]);
   });

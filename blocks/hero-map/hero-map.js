@@ -72,7 +72,8 @@ function buildMarker(row) {
 
   const [logoPic, flagPic] = pictures;
   const logoAlt = logoPic?.querySelector('img')?.alt || '';
-  const linkText = link?.textContent.trim() || '';
+  // a marker for the current site may be authored as plain text (no link) in the last cell
+  const linkText = link?.textContent.trim() || (cells.length > 2 ? cells.at(-1).textContent.trim() : '');
   const label = (linkText && linkText !== href && !/^https?:/i.test(linkText))
     ? linkText : (logoAlt || code.toUpperCase());
 

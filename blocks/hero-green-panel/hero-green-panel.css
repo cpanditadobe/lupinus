@@ -1,0 +1,110 @@
+/*
+ * hero-green-panel: full-bleed photo with a solid green title panel laid over its left side,
+ * vertically centered and fully rounded on its right edge.
+ *
+ * Values come from the source computed styles. The source sizes everything in vw:
+ * a 414px-wide design up to 540px, and a 1920px-wide design above it, so the same
+ * breakpoint is used here.
+ */
+
+/* full-width: escape the section max-width */
+.hero-green-panel-container .hero-green-panel-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-green-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-green-panel .hero-green-panel-media picture,
+.hero-green-panel .hero-green-panel-media img {
+  display: block;
+  width: 100%;
+}
+
+.hero-green-panel .hero-green-panel-media img {
+  height: auto;
+  aspect-ratio: 414 / 401;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-green-panel .hero-green-panel-panel {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 84.5411vw; /* 350px @ 414 */
+  min-height: 80vw; /* 331.2px @ 414 */
+  padding: 6.0386vw; /* 25px @ 414 */
+  border-radius: 0 60.3865vw 60.3865vw 0; /* 250px @ 414 */
+  background-color: rgb(7 158 63);
+  color: var(--background-color);
+  transform: translateY(-50%);
+}
+
+.hero-green-panel .hero-green-panel-panel h1,
+.hero-green-panel .hero-green-panel-panel h2,
+.hero-green-panel .hero-green-panel-panel h3,
+.hero-green-panel .hero-green-panel-panel p {
+  margin: 0;
+  color: inherit;
+}
+
+.hero-green-panel .hero-green-panel-panel h1,
+.hero-green-panel .hero-green-panel-panel h2,
+.hero-green-panel .hero-green-panel-panel h3 {
+  font-family: var(--heading-font-family);
+  font-size: 8.2126vw; /* 34px @ 414 */
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* long titles step down one size, as on the source (subtitle_58 vs subtitle_60) */
+.hero-green-panel.long-title .hero-green-panel-panel h1,
+.hero-green-panel.long-title .hero-green-panel-panel h2,
+.hero-green-panel.long-title .hero-green-panel-panel h3 {
+  font-size: 7.2464vw; /* 30px @ 414 */
+}
+
+.hero-green-panel .hero-green-panel-panel > :not(:first-child) {
+  margin-top: 0.5em;
+}
+
+/* no photo: the panel sits in the flow */
+.hero-green-panel.no-image .hero-green-panel-panel {
+  position: relative;
+  top: auto;
+  transform: none;
+}
+
+@media (width > 540px) {
+  .hero-green-panel .hero-green-panel-media img {
+    aspect-ratio: 32 / 9; /* 1920 x 540 */
+  }
+
+  .hero-green-panel .hero-green-panel-panel {
+    left: 5.2083vw; /* 100px @ 1920 */
+    width: 48.4375vw; /* 930px @ 1920 */
+    min-height: 23.4375vw; /* 450px @ 1920 */
+    padding: 4.1667vw; /* 80px @ 1920 */
+    border-radius: 0 52.0833vw 52.0833vw 0; /* 1000px @ 1920 */
+  }
+
+  .hero-green-panel .hero-green-panel-panel h1,
+  .hero-green-panel .hero-green-panel-panel h2,
+  .hero-green-panel .hero-green-panel-panel h3 {
+    font-size: 3.125vw; /* 60px @ 1920 */
+  }
+
+  .hero-green-panel.long-title .hero-green-panel-panel h1,
+  .hero-green-panel.long-title .hero-green-panel-panel h2,
+  .hero-green-panel.long-title .hero-green-panel-panel h3 {
+    font-size: 3.0208vw; /* 58px @ 1920 */
+  }
+}

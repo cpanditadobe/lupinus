@@ -1,0 +1,31 @@
+{
+  "variantName": "columns-anchor-nav",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light-green",
+    "density": "medium",
+    "purpose": "in-page-anchor-nav",
+    "imagePattern": "noimg",
+    "structure": "pill anchor links + subheading + list + paragraphs"
+  },
+  "contentPattern": "1 row, 2 cells: [nav cell: one paragraph link per nav item, hrefs kept exactly (patient: #about, #take, #faq, copay PDF, #specialtypharmacy; HCP: #dosing, #admin, #faq-1, copay PDF, #specialty), rendered as a <nav> list of stacked outlined pills] | [text cell: h3 subheading (e.g. 'A generic equivalent to RAVICTI<sup>®*</sup>'), bold trademark paragraph, bullet list, h3 subheading, paragraphs]. The nav cell is detected as the cell containing only links. Decorative flower is CSS (hook: .columns-anchor-nav::after), not authored. Typically in a section with Style: light-green.",
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "5.2",
+        "screenshot": "migration-work/screenshot-panel-patient.png"
+      },
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "13.2",
+        "screenshot": "migration-work/screenshot-panel-patient.png"
+      }
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-10-05T16:32:03.464Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

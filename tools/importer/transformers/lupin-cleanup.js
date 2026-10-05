@@ -4,6 +4,10 @@
 /**
  * Transformer: lupin.com (US) site-wide cleanup.
  * All selectors verified in migration-work/cleaned.html (https://www.lupin.com/US/product).
+ * Product-detail selectors verified in the product-detail cleaned.html
+ * (https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid).
+ * Product-detail-only logic is guarded by isProductDetail() so the product and
+ * contact-us imports are unaffected.
  */
 const TransformHook = { beforeTransform: 'beforeTransform', afterTransform: 'afterTransform' };
 
@@ -14,13 +18,27 @@ const CONTENT_SECTIONS = [
   // contact-us
   'section.contact_banner', 'section.contact_address', 'section.contact_location',
   'section.contact_form', 'section.media_contact',
+  // product-detail
+  'section.product_detail_section', '#HCP', '#info-1', '#info-2', 'div.product_popup',
 ].join(', ');
+
+const PDF_ORIGIN = 'https://www.lupin.com';
 
 function removeAll(root, selector) {
   root.querySelectorAll(selector).forEach((el) => el.remove());
 }
 
+// product-detail: template name from the import script; without a template name
+// (fallback) the product-detail-only <section class="product_detail_section">.
+function isProductDetail(element, payload) {
+  const name = payload && payload.template && payload.template.name;
+  if (name) return name === 'product-detail';
+  return !!element.querySelector('section.product_detail_section');
+}
+
 export default function transform(hookName, element, payload) {
+  const productDetail = isProductDetail(element, payload);
+
   if (hookName === TransformHook.beforeTransform) {
     // --- Site-wide overlays (page-structure "excluded" rc3 / rc4) ---
     // #wrapper > div:nth-of-type(2): floating "Smart Guide" button + Search Product popup
@@ -35,7 +53,8 @@ export default function transform(hookName, element, payload) {
       const wrapperDiv = marker.closest('#wrapper > div');
       // Never remove the #wrapper div that holds the page content
       // (product: section.product_listing_banner/#product_listing/#patient-education;
-      //  contact-us: section.contact_banner/.contact_address/.contact_location/.contact_form/.media_contact)
+      //  contact-us: section.contact_banner/.contact_address/.contact_location/.contact_form/.media_contact;
+      //  product-detail: section.product_detail_section/#HCP/#info-1/#info-2/div.product_popup)
       if (wrapperDiv && !wrapperDiv.querySelector(CONTENT_SECTIONS)) {
         wrapperDiv.remove();
       } else {
@@ -43,12 +62,65 @@ export default function transform(hookName, element, payload) {
       }
     });
 
+    if (productDetail) {
+      // HCP gate popup (user decision: no gate). It shares id="product_popup" with the
+      // co-pay modal, so match by class only:
+      //   <div id="product_popup" class="guide_popup disclaimer_popup  active">
+      removeAll(element, 'div.guide_popup.disclaimer_popup');
+      // ISI "Show More" toggle: <div class="isi_section"><div class="show_button">Show More</div>
+      // (all ISI text is kept verbatim - it is shown inline)
+      removeAll(element, 'div.isi_section > div.show_button');
+      // Decorative flower images: <div class="flower_bg_container"><div class="flower_bg"><img>
+      removeAll(element, 'div.flower_bg_container');
+      // Empty decorative spacers before each ISI:
+      //   <div class="patient_active">&nbsp;</div>, <div class="hcp_active">&nbsp;</div>
+      removeAll(element, 'div.patient_active, div.hcp_active');
+
+      // Co-pay modal: <div id="product_popup" class="product_popup ">
+      element.querySelectorAll('div.product_popup').forEach((popup) => {
+        // Close button: <a class="close_btn" href=""><img alt="Close"> <span>Close</span></a>
+        removeAll(popup, 'a.close_btn');
+        // "Eligibility Requirements:" is authored as <pre><code> in the CMS; keep the text as a paragraph.
+        popup.querySelectorAll('pre').forEach((pre) => {
+          const p = document.createElement('p');
+          p.textContent = pre.textContent.trim();
+          pre.replaceWith(p);
+        });
+        // <div class="contact_terms"><label><input id="check_term">I am over the age of 18 ...</label>
+        //   <a class="pdf_link" href="https://accessactivation.apollocare.com/...">Download Co-pay Savings Card</a>
+        // Drop the checkbox; keep the agreement sentence as text and the download link.
+        popup.querySelectorAll('div.contact_terms').forEach((terms) => {
+          const nodes = [];
+          terms.querySelectorAll('label').forEach((label) => {
+            label.querySelectorAll('input').forEach((input) => input.remove());
+            const text = label.textContent.trim();
+            if (text) {
+              const p = document.createElement('p');
+              p.textContent = text;
+              nodes.push(p);
+            }
+          });
+          terms.querySelectorAll('a').forEach((a) => {
+            const p = document.createElement('p');
+            p.append(a);
+            nodes.push(p);
+          });
+          if (nodes.length) terms.replaceChildren(...nodes);
+        });
+      });
+    }
+
     // --- Product catalog controls rebuilt client-side by cards-product ---
     // <section class="product_filter">: search form, category tabs, A-Z letter buttons.
-    // Keep only the authored "Download Product Catalog" PDF link
+    // Product listing: keep only the authored "Download Product Catalog" PDF link
     //   <a class="tab_link" href="/US/cms/uploads/Lupin_Product_Catalog_9-1-2026.pdf">
     // The section element itself is kept so the section transformer can still anchor on it.
+    // Product detail: the whole search/filter is removed (user decision: leave out).
     element.querySelectorAll('section.product_filter').forEach((filter) => {
+      if (productDetail) {
+        filter.remove();
+        return;
+      }
       const pdfLink = filter.querySelector('a.tab_link[href$=".pdf"]');
       if (pdfLink) {
         const p = document.createElement('p');
@@ -114,5 +186,16 @@ export default function transform(hookName, element, payload) {
       'script',
       'style',
     ]);
+
+    if (productDetail) {
+      // PDF links must stay absolute (lupinuscms.azurewebsites.net / www.lupin.com).
+      // Absolute hrefs are left untouched; a site-relative PDF href ("/US/...") is made absolute.
+      element.querySelectorAll('a[href*=".pdf"]').forEach((a) => {
+        const href = a.getAttribute('href') || '';
+        if (href.charAt(0) === '/' && href.charAt(1) !== '/') {
+          a.setAttribute('href', PDF_ORIGIN + href);
+        }
+      });
+    }
   }
 }

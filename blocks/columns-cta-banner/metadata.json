@@ -1,0 +1,31 @@
+{
+  "variantName": "columns-cta-banner",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "green",
+    "density": "spacious",
+    "purpose": "savings-cta-banner",
+    "imagePattern": "image-right",
+    "structure": "statement + cta | card image"
+  },
+  "contentPattern": "1 row, 2 cells: [statement paragraph or h2; paragraph with the CTA link, e.g. bold 'Download Copay Savings Card' -> https://accessactivation.apollocare.com/lupin/agravicti/download_pdf, rendered as a black pill with an arrow] | [picture: savings card image]. Full-bleed green band, text left and image right at 900px and up. The CTA opens the hidden same-page section with id 'copay-terms' (Section Metadata Id: copay-terms, Style: modal) in a native dialog with a close button; a CTA whose href is a same-page hash to another 'modal' section opens that one; if the section is missing the CTA is a normal link. Sections carry Tab and Id (card, card-1).",
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "11.1",
+        "screenshot": "migration-work/screenshot-panel-patient.png"
+      },
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "19.1",
+        "screenshot": "migration-work/screenshot-panel-patient.png"
+      }
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-10-05T16:37:04.975Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

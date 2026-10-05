@@ -12,10 +12,20 @@
   "contentPattern": "1 row, 1 cell: picture (banner image) + h1 'Our Products'",
   "usage": {
     "pagesUsing": [
-      { "url": "https://www.lupin.com/US/product", "instanceId": "1.1", "screenshot": "migration-work/screenshot.png" }
+      {
+        "url": "https://www.lupin.com/US/product",
+        "instanceId": "1.1",
+        "screenshot": "migration-work/screenshot.png"
+      },
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "1.1",
+        "screenshot": "migration-work/screenshot.png",
+        "documentPath": "/us/product/glycerol-phenylbutyrate-oral-liquid"
+      }
     ],
-    "reuseCount": 1,
-    "lastUsed": "2026-10-05T00:00:00Z"
+    "reuseCount": 2,
+    "lastUsed": "2026-10-05T15:59:06Z"
   },
   "options": [],
   "memberVariantIds": []

@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-pharmacy",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "medium",
+    "purpose": "pharmacy-directory",
+    "imagePattern": "logo-top",
+    "structure": "logo + name + website link + phone"
+  },
+  "contentPattern": "One row per pharmacy, 2 cells: [logo picture with the source alt text] | [paragraph pharmacy name; paragraph with bold website link (absolute URL); paragraph phone number as a tel: link]. Logo cell optional. A tel: link with no digits (source has 'tel:+') is rebuilt from its visible number (e.g. 1-800-347-3416 -> tel:+18003473416); a plain-text phone paragraph is linked. Rendered as a card grid: logo on white over a green details band.",
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "9.2",
+        "screenshot": "migration-work/screenshot-panel-patient.png"
+      },
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "17.2",
+        "screenshot": "migration-work/screenshot-panel-patient.png"
+      }
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-10-05T16:34:30.882Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

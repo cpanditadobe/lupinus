@@ -1,0 +1,26 @@
+{
+  "variantName": "tabs-audience",
+  "baseBlock": "tabs",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light-grey-band",
+    "density": "compact",
+    "purpose": "audience-switch",
+    "imagePattern": "noimg",
+    "structure": "2 full-width tab buttons + section-based panels + gate modal"
+  },
+  "contentPattern": "One row per tab, 2 cells: [tab label, e.g. 'Information for Patients'] | [panel key, e.g. 'patient'] (rows: patient, hcp). Key cell optional (derived from the label). Default tab = 'patient' (else the first). Rows containing links (the source's HCP gate) are ignored; no gate is rendered. The block's own section carries Section Metadata Id: HCP. Panels: every following section whose Section Metadata 'Tab' matches a key (data-tab, applied by scripts.js) is moved, in order, into that panel; collection stops at the next tabs-audience section. Hash: #<key> (case-insensitive: #HCP, #hcp, #patient) selects that tab and lands on the bar; #<id> of an element inside a panel (including ids created later by blocks) selects that panel and scrolls to it. ARIA tabs with arrow/Home/End keys.",
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "4.1",
+        "screenshot": "migration-work/screenshot-panel-patient.png"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-05T16:30:34.789Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

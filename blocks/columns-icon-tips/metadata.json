@@ -1,0 +1,26 @@
+{
+  "variantName": "columns-icon-tips",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "medium",
+    "purpose": "do-dont-tips",
+    "imagePattern": "icon-left",
+    "structure": "icon + heading + bullet list"
+  },
+  "contentPattern": "One row per tip group (2 rows on the source), 2 cells: [picture: icon (green check / red X)] | [h3 'Do' or 'Don't' + bullet list; keep the line break and poison-control parenthetical in the 2nd Don't item verbatim]. Tone class per row: 'negative' when the heading starts with Don't / Do not / Avoid / Never, 'positive' when it starts with Do, otherwise rows alternate positive/negative; the tone colours the heading. Typically in a section with Style: flower, Tab: patient.",
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "8.2",
+        "screenshot": "migration-work/screenshot-panel-patient.png"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-05T16:33:38.045Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

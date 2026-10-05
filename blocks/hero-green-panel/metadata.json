@@ -1,0 +1,31 @@
+{
+  "variantName": "hero-green-panel",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "green-panel-on-photo",
+    "density": "minimal",
+    "purpose": "section-title-banner",
+    "imagePattern": "full-bleed-background",
+    "structure": "background image + h2 in green rounded panel"
+  },
+  "contentPattern": "1 row, 1 cell (picture and heading may also be in separate cells/rows): picture (background photo) + h2 title (any other text stays with the title). Rendered as a full-bleed photo with the h2 in a green panel, rounded on its right edge, over the photo's left side (>= 900px); stacked photo then panel on mobile. The section carries Section Metadata Tab and Id (e.g. Tab: patient, Id: take / Tab: hcp, Id: dosing).",
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "7.1",
+        "screenshot": "migration-work/screenshot-panel-patient.png"
+      },
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "14.1",
+        "screenshot": "migration-work/screenshot-panel-patient.png"
+      }
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-10-05T16:32:50.052Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

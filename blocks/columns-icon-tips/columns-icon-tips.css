@@ -1,0 +1,128 @@
+/*
+ * columns-icon-tips: "Do" / "Don't" rows, round icon beside a coloured heading and a bullet list.
+ * Values from source computed styles (lupin.com .inhaler_tips .tips_container):
+ * mobile = 390px viewport, desktop = 1440px viewport.
+ */
+
+.columns-icon-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 23.55px;
+  margin: 23.55px 0;
+}
+
+.columns-icon-tips .columns-icon-tips-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 28.26px;
+}
+
+.columns-icon-tips .columns-icon-tips-icon {
+  flex: 0 0 47px;
+  width: 47px;
+}
+
+.columns-icon-tips .columns-icon-tips-item.no-icon .columns-icon-tips-icon {
+  display: none;
+}
+
+.columns-icon-tips .columns-icon-tips-icon picture,
+.columns-icon-tips .columns-icon-tips-icon img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.columns-icon-tips .columns-icon-tips-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.columns-icon-tips .columns-icon-tips-body > :first-child {
+  margin-top: 0;
+}
+
+/* Do / Don't heading */
+.columns-icon-tips .columns-icon-tips-heading {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 18.84px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.columns-icon-tips .positive .columns-icon-tips-heading {
+  color: #079e3f;
+}
+
+.columns-icon-tips .negative .columns-icon-tips-heading {
+  color: #ff0629;
+}
+
+.columns-icon-tips .columns-icon-tips-body p {
+  margin: 0;
+}
+
+/* bullet list */
+.columns-icon-tips .columns-icon-tips-body ul {
+  list-style: none;
+  margin: 14.13px 0 0;
+  padding: 0;
+}
+
+.columns-icon-tips .columns-icon-tips-body ul > li {
+  position: relative;
+  margin: 0 0 9.42px;
+  padding: 0 0 0 14.13px;
+  font-family: var(--body-font-family);
+  font-size: 15px;
+  line-height: 19.5px;
+  color: var(--text-color);
+}
+
+.columns-icon-tips .columns-icon-tips-body ul > li::before {
+  content: "";
+  position: absolute;
+  top: 5.65px;
+  left: 0;
+  width: 4.7px;
+  height: 4.7px;
+  border-radius: 50%;
+  background-color: #079e3f;
+}
+
+@media (width >= 900px) {
+  .columns-icon-tips {
+    gap: 48.75px;
+    margin: 48.75px 0;
+  }
+
+  .columns-icon-tips .columns-icon-tips-item {
+    gap: 45px;
+  }
+
+  .columns-icon-tips .columns-icon-tips-icon {
+    flex-basis: 100.5px;
+    width: 100.5px;
+  }
+
+  .columns-icon-tips .columns-icon-tips-heading {
+    font-size: 34px;
+  }
+
+  .columns-icon-tips .columns-icon-tips-body ul {
+    margin-top: 30px;
+  }
+
+  .columns-icon-tips .columns-icon-tips-body ul > li {
+    margin-bottom: 7.5px;
+    padding-left: 14.25px;
+  }
+
+  .columns-icon-tips .columns-icon-tips-body ul > li::before {
+    top: 6px;
+    width: 5.25px;
+    height: 5.25px;
+  }
+}

@@ -56,7 +56,7 @@
   margin: 0;
 }
 
-.hero-banner h1 {
+.hero-banner :is(h1, h2) {
   margin: 0;
   font-family: var(--heading-font-family);
   font-size: 8.2125vw;
@@ -76,7 +76,7 @@
   padding: 3.958vw;
 }
 
-.hero-banner.no-image h1 {
+.hero-banner.no-image :is(h1, h2) {
   color: var(--text-color);
 }
 
@@ -86,7 +86,7 @@
     width: 36.458vw;
   }
 
-  .hero-banner h1 {
+  .hero-banner :is(h1, h2) {
     font-size: 3.4375vw;
   }
 }

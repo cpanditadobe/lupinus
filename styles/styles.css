@@ -338,6 +338,11 @@ main .section.light-green {
   padding: 47px 0;
 }
 
+/* sections authored as dialog content (e.g. co-pay terms) stay hidden on the page */
+main .section.modal {
+  display: none;
+}
+
 /* contact details: stacked heading + phone/email groups */
 main .section.contact-details {
   margin-top: 47px;
@@ -414,3 +419,408 @@ main .form-contact-container .default-content-wrapper h2 {
     margin-bottom: 37.5px;
   }
 }
+
+/* same-page section dialog (co-pay terms), opened by columns-product-detail and columns-cta-banner */
+dialog.section-dialog {
+  box-sizing: border-box;
+  width: 90vw;
+  max-width: 90vw;
+  max-height: calc(100dvh - 32px);
+  padding: 47.1px 23.55px 28.26px;
+  border: 0;
+  border-radius: 14.13px;
+  overflow: hidden;
+  background-color: var(--brand-green);
+  color: #fff;
+  font-family: var(--body-font-family);
+}
+
+dialog.section-dialog::backdrop {
+  background: rgb(0 0 0 / 50%);
+}
+
+dialog.section-dialog .section-dialog-close {
+  position: absolute;
+  top: 18.84px;
+  right: 18.84px;
+  display: flex;
+  align-items: center;
+  gap: 5.65px;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgb(255 255 255 / 80%);
+  font-family: var(--body-font-family);
+  font-size: 9.42px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+dialog.section-dialog .section-dialog-close::before,
+dialog.section-dialog .section-dialog-close::after {
+  position: static;
+  top: auto;
+  left: auto;
+  transform: none;
+}
+
+dialog.section-dialog .section-dialog-close::before {
+  content: "";
+  display: block;
+  width: 7.53px;
+  height: 7.53px;
+  background: currentcolor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0.5 0.5 L9.5 9.5 M9.5 0.5 L0.5 9.5' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+dialog.section-dialog .section-dialog-close::after {
+  content: "Close";
+  width: auto;
+  height: auto;
+  background: none;
+  letter-spacing: 1.41px;
+}
+
+dialog.section-dialog .section-dialog-body {
+  box-sizing: border-box;
+  max-height: min(387px, calc(100dvh - 112px));
+  padding-right: 9.42px;
+  overflow-y: auto;
+}
+
+dialog.section-dialog .section-dialog-body > div {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* group labels */
+dialog.section-dialog .section-dialog-body p {
+  margin: 23.55px 0 11.3px;
+  font-family: var(--heading-font-family);
+  font-size: 15.07px;
+  font-weight: 400;
+  line-height: 1;
+  color: #fff;
+}
+
+/* first label renders as plain black body copy on the source */
+dialog.section-dialog .section-dialog-body > div > p:first-child {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  line-height: 21px;
+  color: #000;
+}
+
+dialog.section-dialog .section-dialog-body ul {
+  margin: 0;
+  padding: 0 0 0 18.84px;
+  list-style: disc;
+}
+
+dialog.section-dialog .section-dialog-body > div > p:first-child + ul {
+  padding: 0;
+  list-style: none;
+}
+
+dialog.section-dialog .section-dialog-body li {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 15.07px;
+  line-height: 1.3;
+  color: #fff;
+}
+
+dialog.section-dialog .section-dialog-body li + li {
+  margin-top: 9.42px;
+}
+
+dialog.section-dialog .section-dialog-body > div > p:first-child + ul li {
+  color: #fafafa;
+}
+
+/*
+ * agreement line + download link stay pinned below the scrolling terms (as on the source):
+ * both are sticky to the bottom of the scroll area, on the panel colour.
+ */
+
+/* download link row */
+dialog.section-dialog .section-dialog-body p:last-child:has(> a:only-child) {
+  position: sticky;
+  bottom: 0;
+  margin: 0;
+  background-color: var(--brand-green);
+  box-shadow: 0 -6px 0 var(--brand-green); /* closes the sub-pixel seam above */
+  font-family: var(--body-font-family);
+}
+
+/* agreement line above the download link */
+dialog.section-dialog .section-dialog-body p:has(+ p:last-child > a:only-child) {
+  position: sticky;
+  bottom: 26.49px;
+  margin: 0;
+  padding: 23.55px 0 9.42px;
+  background-color: var(--brand-green);
+  font-family: var(--body-font-family);
+  font-size: 15.07px;
+  letter-spacing: 1px;
+}
+
+/* download link: white pill */
+dialog.section-dialog .section-dialog-body p:last-child > a:only-child:any-link {
+  display: block;
+  box-sizing: border-box;
+  width: 264px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 4.71px 9.42px;
+  border: 1px solid #fff;
+  border-radius: 23.55px;
+  background-color: #fff;
+  color: var(--brand-green);
+  font-size: 15.07px;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media (width >= 900px) {
+  dialog.section-dialog {
+    width: 60vw;
+    max-width: 60vw;
+    padding: 75px 37.5px 37.5px;
+    border-radius: 18.75px;
+  }
+
+  dialog.section-dialog .section-dialog-close {
+    top: 35.25px;
+    right: 58.5px;
+    gap: 7.5px;
+    font-size: 10.81px;
+  }
+
+  dialog.section-dialog .section-dialog-close::before {
+    width: 10.5px;
+    height: 10.5px;
+  }
+
+  dialog.section-dialog .section-dialog-close::after {
+    letter-spacing: 2.25px;
+  }
+
+  dialog.section-dialog .section-dialog-body {
+    max-height: min(483.5px, calc(100dvh - 144px));
+    padding-right: 7.5px;
+  }
+
+  dialog.section-dialog .section-dialog-body p {
+    margin: 37.5px 0 15px;
+    font-size: 18px;
+  }
+
+  dialog.section-dialog .section-dialog-body ul {
+    padding-left: 26.25px;
+  }
+
+  dialog.section-dialog .section-dialog-body li {
+    font-size: 15px;
+  }
+
+  dialog.section-dialog .section-dialog-body li + li {
+    margin-top: 18.75px;
+  }
+
+  dialog.section-dialog .section-dialog-body p:has(+ p:last-child > a:only-child) {
+    bottom: 39.5px;
+    padding: 37.5px 0 15px;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  dialog.section-dialog .section-dialog-body p:last-child > a:only-child:any-link {
+    width: 375px;
+    padding: 11.25px 33px;
+    border-radius: 37.5px;
+    font-size: 15px;
+  }
+}
+
+/* stylelint-disable no-descending-specificity -- product-detail rules never target dialog content */
+
+/* product detail: disclaimer under the product summary */
+main .columns-product-detail-container .default-content-wrapper p {
+  margin: 18.84px 0 0;
+}
+
+/* product detail: default content inside the Patients / HCPs tab panels */
+main .section[data-tab] .default-content-wrapper h2 {
+  margin: 0 0 23.55px;
+  font-size: 32px;
+  line-height: 1;
+}
+
+main .section[data-tab] .default-content-wrapper h3 {
+  margin: 0 0 18.84px;
+  font-size: 17px;
+  line-height: 1.3;
+  color: rgb(7 158 63);
+}
+
+main .section[data-tab] .default-content-wrapper * + h3 {
+  margin-top: 23.55px;
+}
+
+main .section[data-tab] .default-content-wrapper p {
+  margin: 0 0 9.42px;
+}
+
+/* important safety information, shown inline in full */
+main .section.isi {
+  margin: 0;
+  padding: 47.1px 0 28.26px;
+  border-top: 5px solid rgb(22 167 76);
+  background-color: var(--background-color);
+}
+
+main .section.isi .default-content-wrapper h2:first-child {
+  margin: 0 0 18.84px;
+  font-size: 18.84px;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+main .section.isi .default-content-wrapper :is(h2, h3):not(:first-child) {
+  margin: 18.84px 0 0;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #000;
+}
+
+main .section.isi .default-content-wrapper p {
+  margin: 0 0 14.13px;
+}
+
+main .section.isi .default-content-wrapper strong {
+  line-height: 1.1;
+}
+
+main .section.isi .default-content-wrapper a:any-link {
+  font-weight: 700;
+}
+
+/* administration (light-green + flower) uses the deeper source green */
+main .section.light-green.flower {
+  background-color: #edf9f1;
+}
+
+/* rotating flower decoration (decorative image dropped from content) */
+main .section.flower {
+  position: relative;
+  overflow: hidden;
+}
+
+main .section.flower::before {
+  content: '';
+  position: absolute;
+  top: 9.42px;
+  right: 18.84px;
+  width: 141.3px;
+  aspect-ratio: 1;
+  background: url('https://lupinuscms.azurewebsites.net/uploads/flower_bg_fee7f05506_b658a23792.webp') center / contain no-repeat;
+  animation: section-flower-rotate 60s linear infinite;
+  pointer-events: none;
+}
+
+main .section.flower > div {
+  position: relative;
+}
+
+@keyframes section-flower-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main .section.flower::before {
+    animation: none;
+  }
+}
+
+/* intro: "Full Prescribing Information" link, then the large product name */
+main .section.light-green[data-tab] > .default-content-wrapper:first-child p:first-child {
+  margin-bottom: 47px;
+  font-size: 13.2px;
+}
+
+main .section.light-green[data-tab] > .default-content-wrapper:first-child p:first-child a:any-link {
+  color: #313232;
+}
+
+main .section.light-green[data-tab] > .default-content-wrapper:first-child p:nth-child(2) {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 32px;
+  line-height: 1;
+  text-align: center;
+}
+
+@media (width >= 900px) {
+  main .columns-product-detail-container .default-content-wrapper p {
+    margin-top: 37.5px;
+  }
+
+  main .section[data-tab] .default-content-wrapper h2 {
+    margin-bottom: 37.5px;
+    font-size: 45px;
+  }
+
+  main .section[data-tab] .default-content-wrapper h3 {
+    margin-bottom: 22.5px;
+    font-size: 22.5px;
+    line-height: 1;
+  }
+
+  main .section[data-tab] .default-content-wrapper * + h3 {
+    margin-top: 26.25px;
+  }
+
+  main .section[data-tab] .default-content-wrapper p {
+    margin-bottom: 11.25px;
+  }
+
+  main .section.isi {
+    padding: 75px 0;
+    border-top-width: 10px;
+  }
+
+  main .section.isi .default-content-wrapper h2:first-child {
+    margin-bottom: 22.5px;
+    font-size: 26.25px;
+  }
+
+  main .section.isi .default-content-wrapper p {
+    margin-bottom: 11.25px;
+  }
+
+  main .section.flower::before {
+    top: 12px;
+    right: 7.5px;
+    width: 381.75px;
+  }
+
+  main .section.light-green[data-tab] > .default-content-wrapper:first-child p:first-child {
+    margin-bottom: 56.25px;
+    font-size: 13.5px;
+  }
+
+  main .section.light-green[data-tab] > .default-content-wrapper:first-child p:nth-child(2) {
+    font-size: 45px;
+  }
+}
+
+/* stylelint-enable no-descending-specificity */

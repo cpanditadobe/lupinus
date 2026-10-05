@@ -29,12 +29,14 @@ export default function parse(element, { document }) {
     cells.push([img]);
   }
   if (heading) {
-    let h1 = heading;
-    if (heading.tagName !== 'H1') {
-      h1 = document.createElement('h1');
-      h1.textContent = heading.textContent.trim();
+    // Keep the source's heading level: the product listing title is an h1, but on product
+    // detail pages it is a non-heading div (the product name is the page's h1), so emit h2.
+    let title = heading;
+    if (!/^H[1-6]$/.test(heading.tagName)) {
+      title = document.createElement('h2');
+      title.textContent = heading.textContent.trim();
     }
-    cells.push([h1]);
+    cells.push([title]);
   }
 
   const block = WebImporter.Blocks.createBlock(document, { name: 'hero-banner', cells });

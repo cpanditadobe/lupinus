@@ -1,0 +1,26 @@
+{
+  "variantName": "columns-product-detail",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "medium",
+    "purpose": "product-detail",
+    "imagePattern": "boxed-product-image",
+    "structure": "image + h1 + spec list + pdf pill links + outlined cta"
+  },
+  "contentPattern": "1 row, 2 cells: [picture: product photo] | [h1 product name; bullet list, one item per spec as '<strong>Label</strong>: value' (rendered as a label/value grid); paragraphs with bold links to the PDFs (Package insert, Medication Guide, Download Safety Data Sheet; absolute lupinuscms.azurewebsites.net URLs) rendered as stacked pills; paragraph with italic link 'Download Co-pay Savings Card' -> #copay-terms; paragraph with plain link 'General Terms & Conditions' -> #copay-terms]. Links to a same-page section with class 'modal' open its content in a <dialog>; without that section they behave as normal links.",
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "3.1",
+        "screenshot": "migration-work/screenshot-panel-patient.png"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-05T16:28:31.163Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

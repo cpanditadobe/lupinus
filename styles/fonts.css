@@ -20,3 +20,11 @@
   font-display: swap;
   src: url('https://www.lupin.com/US/fonts/swissRoman/swissRoman.woff') format('woff');
 }
+
+@font-face {
+  font-family: helvetica-bold;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://www.lupin.com/US/fonts/helvetica/bold/Helvetica_LT_Std_Bold.woff') format('woff');
+}

@@ -9,7 +9,7 @@
         "https://www.lupin.com/US/contact-us"
       ],
       "representativeUrl": "https://www.lupin.com/US/contact-us",
-      "description": "Lupin US contact page: world-map banner with affiliate markers, contact details, US location cards, contact form (layout only), media/careers contact columns",
+      "description": "To be named in naming step",
       "blocks": [
         {
           "name": "hero-map",
@@ -36,7 +36,6 @@
           ]
         }
       ],
-      "urlPattern": "/US/*",
       "sections": [
         {
           "id": "1",
@@ -102,7 +101,8 @@
           ],
           "defaultContent": []
         }
-      ]
+      ],
+      "urlPattern": "/US/*"
     },
     {
       "name": "product",
@@ -175,6 +175,307 @@
         }
       ],
       "urlPattern": "/US/*"
+    },
+    {
+      "name": "product-detail",
+      "urls": [
+        "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid"
+      ],
+      "representativeUrl": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+      "description": "Lupin US product detail page: banner, product info + PDFs, Patients/HCPs audience tabs (no HCP gate) with intro, banners, tips, pharmacies, FAQs, savings card, ISI; co-pay terms as a hidden dialog section",
+      "blocks": [
+        {
+          "name": "hero-banner",
+          "instances": [
+            "section.product_listing_banner"
+          ]
+        },
+        {
+          "name": "columns-product-detail",
+          "instances": [
+            "section.product_detail_section > div.product_detail_wrapper"
+          ]
+        },
+        {
+          "name": "tabs-audience",
+          "instances": [
+            "#HCP"
+          ]
+        },
+        {
+          "name": "columns-anchor-nav",
+          "instances": [
+            "section.tolvaptan_support.gp_patient > div.tolvaptan_support_container"
+          ]
+        },
+        {
+          "name": "hero-green-panel",
+          "instances": [
+            "#take",
+            "#dosing"
+          ]
+        },
+        {
+          "name": "columns-icon-tips",
+          "instances": [
+            "#info-1 > section.inhaler_tips div.support_inhaler_wrapper"
+          ]
+        },
+        {
+          "name": "cards-pharmacy",
+          "instances": [
+            "#specialtypharmacy > div.pharma_logo_container",
+            "#specialty > div.pharma_logo_container"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "#faq > div.faq_wrapper",
+            "#faq-1 > div.faq_wrapper"
+          ]
+        },
+        {
+          "name": "columns-cta-banner",
+          "instances": [
+            "#card > div.gp_saving_wrapper",
+            "#card-1 > div.gp_saving_wrapper"
+          ]
+        }
+      ],
+      "urlPattern": "/US/product/*",
+      "sections": [
+        {
+          "id": "1",
+          "name": "Products page banner",
+          "selector": [
+            "section.product_listing_banner"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-banner"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "3",
+          "name": "Product detail",
+          "selector": [
+            "section.product_detail_section"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-product-detail"
+          ],
+          "defaultContent": [
+            "section.product_detail_section > p.product_para"
+          ]
+        },
+        {
+          "id": "4",
+          "name": "Audience tabs (#HCP)",
+          "selector": [
+            "#HCP"
+          ],
+          "style": null,
+          "blocks": [
+            "tabs-audience"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "5",
+          "name": "PATIENT - intro",
+          "selector": [
+            "#info-1 > section.tolvaptan_support"
+          ],
+          "style": "light-green",
+          "blocks": [
+            "columns-anchor-nav"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "6",
+          "name": "Patient - About",
+          "selector": [
+            "#about"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "7",
+          "name": "PATIENT - take banner",
+          "selector": [
+            "#take"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-green-panel"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "8",
+          "name": "Patient - Tips",
+          "selector": [
+            "#info-1 > section.inhaler_tips"
+          ],
+          "style": "flower",
+          "blocks": [
+            "columns-icon-tips"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "9",
+          "name": "PATIENT - specialty pharmacies",
+          "selector": [
+            "#specialtypharmacy"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-pharmacy"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "10",
+          "name": "PATIENT - FAQ",
+          "selector": [
+            "#faq"
+          ],
+          "style": null,
+          "blocks": [
+            "accordion-faq"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "11",
+          "name": "PATIENT - savings card CTA",
+          "selector": [
+            "#card"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-cta-banner"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "12",
+          "name": "PATIENT - ISI",
+          "selector": [
+            "#info-1 > section.patient_main_container"
+          ],
+          "style": "isi",
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "13",
+          "name": "HCP - intro",
+          "selector": [
+            "#info-2 > section.tolvaptan_support"
+          ],
+          "style": "light-green",
+          "blocks": [
+            "columns-anchor-nav"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "14",
+          "name": "HCP - dosing banner",
+          "selector": [
+            "#dosing"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-green-panel"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "15",
+          "name": "HCP - Dosing details",
+          "selector": [
+            "#info-2 > section.pharma_special.gp_support_tips:not([id])"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "16",
+          "name": "HCP - Administration",
+          "selector": [
+            "#admin"
+          ],
+          "style": "light-green, flower",
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "17",
+          "name": "HCP - specialty pharmacies",
+          "selector": [
+            "#specialty"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-pharmacy"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "18",
+          "name": "HCP - FAQ",
+          "selector": [
+            "#faq-1"
+          ],
+          "style": null,
+          "blocks": [
+            "accordion-faq"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "19",
+          "name": "HCP - savings card CTA",
+          "selector": [
+            "#card-1"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-cta-banner"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "20",
+          "name": "HCP - ISI",
+          "selector": [
+            "#info-2 > section.hcp_main_container"
+          ],
+          "style": "isi",
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "21",
+          "name": "Co-pay General Terms & Conditions (modal content)",
+          "selector": [
+            "div.product_popup"
+          ],
+          "style": "modal",
+          "blocks": [],
+          "defaultContent": []
+        }
+      ]
     }
   ]
 }

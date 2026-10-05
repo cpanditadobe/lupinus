@@ -1,0 +1,225 @@
+/*
+ * columns-cta-banner: full-bleed green savings band.
+ * Values come from the source (lupin.com gp_saving), which sizes everything in vw.
+ * Default: statement + CTA beside the savings card image, darker curved shape at the
+ * bottom right (::before). .backdrop (set by JS for a very wide image): the image is the
+ * whole band artwork and the statement overlays it.
+ */
+
+/* full-width band: escape the section max-width */
+.columns-cta-banner-container .columns-cta-banner-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.columns-cta-banner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12.0773vw;
+  overflow: hidden;
+  padding: 2.6042vw 6.5104vw 21.2409vw;
+  background-color: #00a54d;
+  color: #fff;
+}
+
+/* darker curved shape, bottom right */
+.columns-cta-banner::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  width: 91.7874vw;
+  aspect-ratio: 671 / 521;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 671 521' preserveAspectRatio='none'%3E%3Cpath fill='%2300752b' d='M0 521 L120 88 Q142 8 215 4 L671 128 L671 521 Z'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+  pointer-events: none;
+}
+
+.columns-cta-banner > * {
+  position: relative;
+  z-index: 1;
+}
+
+.columns-cta-banner .columns-cta-banner-content {
+  width: 100%;
+}
+
+.columns-cta-banner .columns-cta-banner-content > :first-child {
+  margin-top: 0;
+}
+
+/* statement */
+.columns-cta-banner .columns-cta-banner-content p,
+.columns-cta-banner .columns-cta-banner-content h2,
+.columns-cta-banner .columns-cta-banner-content h3 {
+  margin: 0 0 6.0386vw;
+  font-family: var(--heading-font-family);
+  font-size: 6.7633vw;
+  font-weight: 400;
+  line-height: 1;
+  color: #fff;
+}
+
+.columns-cta-banner .columns-cta-banner-content > :last-child {
+  margin-bottom: 0;
+}
+
+/* CTA: black pill, label with the arrow below it */
+.columns-cta-banner .columns-cta-banner-content p.columns-cta-banner-action {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  line-height: 21px;
+}
+
+main .columns-cta-banner a.columns-cta-banner-cta:any-link {
+  display: inline-block;
+  max-width: 100%;
+  margin: 0;
+  padding: 1.9324vw 3.6232vw;
+  border: 1px solid #000;
+  border-radius: 6.0386vw;
+  background-color: #000;
+  color: #fff;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 21px;
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+  overflow: visible;
+  transition: 0.3s ease-in;
+}
+
+main .columns-cta-banner a.columns-cta-banner-cta:hover,
+main .columns-cta-banner a.columns-cta-banner-cta:focus-visible {
+  border-color: #000;
+  background-color: #fff;
+  color: #000;
+  text-decoration: none;
+}
+
+.columns-cta-banner a.columns-cta-banner-cta::after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 24px;
+  background-color: currentcolor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 24'%3E%3Cpath d='M1.5 22.5 L18 6 M7.5 5.5 H18.5 V16.5' fill='none' stroke='%23000' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+/* savings card image */
+.columns-cta-banner .columns-cta-banner-media {
+  display: block;
+  width: 100%;
+}
+
+.columns-cta-banner .columns-cta-banner-media picture {
+  display: block;
+}
+
+.columns-cta-banner .columns-cta-banner-media img {
+  display: block;
+  width: 85%;
+  max-width: 100%;
+  height: auto;
+}
+
+/* backdrop: the image is the band artwork */
+.columns-cta-banner.backdrop {
+  gap: 0;
+  padding: 18.1159vw 0 0;
+  background-color: #008c17;
+}
+
+.columns-cta-banner.backdrop::before {
+  display: none;
+}
+
+.columns-cta-banner.backdrop .columns-cta-banner-content {
+  width: 87.9227vw;
+  margin: 0 auto 18.1159vw;
+}
+
+.columns-cta-banner.backdrop .columns-cta-banner-media img {
+  width: 72.4638vw;
+  max-width: none;
+  margin-left: auto;
+}
+
+@media (width >= 900px) {
+  .columns-cta-banner {
+    flex-direction: row;
+    align-items: center;
+    gap: 6.5104vw;
+    padding: 2.6042vw 6.5104vw 3.125vw;
+  }
+
+  .columns-cta-banner::before {
+    width: 31.25vw;
+  }
+
+  .columns-cta-banner .columns-cta-banner-content {
+    flex: 0 1 52.0833vw;
+    width: auto;
+    min-width: 0;
+  }
+
+  .columns-cta-banner .columns-cta-banner-content p,
+  .columns-cta-banner .columns-cta-banner-content h2,
+  .columns-cta-banner .columns-cta-banner-content h3 {
+    margin-bottom: 2.6042vw;
+    font-size: 2.7172vw;
+  }
+
+  main .columns-cta-banner a.columns-cta-banner-cta:any-link {
+    padding: 1.25vw 1.7188vw 1.1979vw 1.5104vw;
+    border-radius: 2.6042vw;
+  }
+
+  .columns-cta-banner .columns-cta-banner-media {
+    flex: 0 0 auto;
+    width: 28.8021vw;
+  }
+
+  .columns-cta-banner .columns-cta-banner-media img {
+    width: 100%;
+  }
+
+  .columns-cta-banner.no-image .columns-cta-banner-content {
+    flex-basis: 100%;
+  }
+
+  /* backdrop: statement overlays the artwork at the top left */
+  .columns-cta-banner.backdrop {
+    display: grid;
+    grid-template: 1fr / 1fr;
+    align-items: start;
+    padding: 0;
+    background-color: var(--brand-green);
+  }
+
+  .columns-cta-banner.backdrop > * {
+    grid-area: 1 / 1;
+  }
+
+  .columns-cta-banner.backdrop .columns-cta-banner-content {
+    z-index: 1;
+    width: 52.0833vw;
+    margin: 2.6042vw 0 0 5.2083vw;
+  }
+
+  .columns-cta-banner.backdrop .columns-cta-banner-media {
+    z-index: 0;
+    width: 100%;
+  }
+
+  .columns-cta-banner.backdrop .columns-cta-banner-media img {
+    width: 100%;
+    margin: 0;
+  }
+}

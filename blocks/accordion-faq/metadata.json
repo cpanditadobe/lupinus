@@ -1,0 +1,31 @@
+{
+  "variantName": "accordion-faq",
+  "baseBlock": "accordion",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light-green",
+    "density": "compact",
+    "purpose": "faq",
+    "imagePattern": "noimg",
+    "structure": "question + chevron + answer paragraphs"
+  },
+  "contentPattern": "One row per question, 2 cells: [question text (plain paragraph or h3)] | [answer paragraphs or lists, inline links preserved]. Rendered as native details/summary items, all collapsed by default, chevron on the right. A single-cell row is a question with no answer. 6 rows (patient) and 4 rows (HCP) on the source; the section carries Section Metadata Tab and Id (faq, faq-1) and an h2 'Frequently Asked Questions' as default content.",
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "10.2",
+        "screenshot": "migration-work/screenshot-panel-patient.png"
+      },
+      {
+        "url": "https://www.lupin.com/US/product/glycerol-phenylbutyrate-oral-liquid",
+        "instanceId": "18.2",
+        "screenshot": "migration-work/screenshot-panel-patient.png"
+      }
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-10-05T16:35:54.380Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

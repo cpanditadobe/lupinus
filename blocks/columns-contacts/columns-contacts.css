@@ -13,14 +13,6 @@
  */
 
 /* Helvetica LT Std Bold, used by the source for the mailto links (served by lupin.com, CORS enabled) */
-@font-face {
-  font-family: columns-contacts-helvetica-bold;
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('https://www.lupin.com/US/fonts/helvetica/bold/Helvetica_LT_Std_Bold.woff') format('woff');
-}
-
 .columns-contacts {
   margin-top: min(9.6618vw, 52.17px);
   color: var(--text-color);
@@ -96,7 +88,7 @@
 
 /* mailto / tel link */
 .columns-contacts .columns-contacts-link {
-  font-family: columns-contacts-helvetica-bold, "Helvetica Neue", helvetica, arial, sans-serif;
+  font-family: helvetica-bold, "Helvetica Neue", helvetica, arial, sans-serif;
   font-size: min(3.8647vw, 20.87px);
   font-weight: 700;
 
