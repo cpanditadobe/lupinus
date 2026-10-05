@@ -4,12 +4,22 @@
   },
   "templates": [
     {
+      "name": "contact-us",
+      "urls": [
+        "https://www.lupin.com/US/contact-us"
+      ],
+      "representativeUrl": "https://www.lupin.com/US/contact-us",
+      "description": "To be named in naming step",
+      "blocks": [],
+      "urlPattern": "/US/*"
+    },
+    {
       "name": "product",
       "urls": [
         "https://www.lupin.com/US/product"
       ],
       "representativeUrl": "https://www.lupin.com/US/product",
-      "description": "Lupin US product listing page: hero banner, product catalog cards with client-side search/filter/pagination, and patient-education/HCP link tiles",
+      "description": "To be named in naming step",
       "blocks": [
         {
           "name": "hero-banner",
@@ -30,7 +40,6 @@
           ]
         }
       ],
-      "urlPattern": "/US/*",
       "sections": [
         {
           "id": "1",
@@ -73,7 +82,8 @@
             "#patient-education > div > div.subtitle_30"
           ]
         }
-      ]
+      ],
+      "urlPattern": "/US/*"
     }
   ]
 }

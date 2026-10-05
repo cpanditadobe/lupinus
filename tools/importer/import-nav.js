@@ -4,11 +4,11 @@
 /**
  * Nav import: builds the site nav fragment (/nav) with a single top-level link.
  * Source header (https://www.lupin.com/US/*) is not mirrored; the nav is
- * intentionally reduced to one "Contact your Representative" link pointing at
+ * intentionally reduced to one "Contact Your Representative" link pointing at
  * the source site's Contact Us page.
  */
 const NAV_LINKS = [
-  { text: 'Contact your Representative', href: '/US/contact-us' },
+  { text: 'Contact Your Representative', href: '/US/contact-us' },
 ];
 
 export default {
