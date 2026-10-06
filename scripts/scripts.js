@@ -236,6 +236,8 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   import('./consent-check.js');
+  // Marketo forms (also those decorated later, e.g. in fragments)
+  import('./marketo.js').then(({ loadMarketoForms }) => loadMarketoForms());
   // load anything that can be postponed to the latest here
 }
 
