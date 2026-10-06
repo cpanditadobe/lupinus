@@ -6,7 +6,8 @@
  *
  * Sections (read by blocks/header/header.js as [brand] [sections]):
  *   brand    - the Lupin logo from the source header, linking to the site home page
- *   sections - one top-level link, "Contact Your Representative" -> /us/contact-us
+ *   sections - top-level links: "Contact Your Representative" -> /us/contact-us and
+ *              "Register" -> #register (opens the registration dialog)
  * The rest of the source header (menus, language selector) is intentionally not mirrored.
  *
  * The logo uses the public lupin.com image URL: DA-hosted media is not readable by the
@@ -16,6 +17,8 @@ const ORIGIN = 'https://www.lupin.com';
 const HOME = '/';
 const NAV_LINKS = [
   { text: 'Contact Your Representative', href: '/us/contact-us' },
+  // opens the registration dialog (scripts/register.js)
+  { text: 'Register', href: '#register' },
 ];
 
 /** _next/image?url=/US/images/... -> the original public image URL */
@@ -43,7 +46,7 @@ export default {
       main.append(p, document.createElement('hr'));
     }
 
-    // sections: one top-level link, no dropdown
+    // sections: top-level links, no dropdowns
     const ul = document.createElement('ul');
     NAV_LINKS.forEach(({ text, href }) => {
       const li = document.createElement('li');
