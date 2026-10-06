@@ -7,3 +7,11 @@
   width: 100%;
   display: block;
 }
+
+/* AEM Assets player embed */
+.video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
