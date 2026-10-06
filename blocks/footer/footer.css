@@ -142,8 +142,10 @@ footer .footer .footer-lead p:has(> .footer-icon-link) {
   margin-top: calc(var(--u) * 4.8309);
 }
 
+/* block-level so the icon never sits on a text baseline (markup differs locally vs delivered) */
 footer .footer a.footer-icon-link {
-  display: inline-block;
+  display: block;
+  width: fit-content;
 }
 
 /* the source leaves a baseline gap under the social icon */
