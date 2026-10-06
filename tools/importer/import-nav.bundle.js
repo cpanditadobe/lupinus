@@ -23,42 +23,37 @@ var CustomImportScript = (() => {
   __export(import_nav_exports, {
     default: () => import_nav_default
   });
-  var ORIGIN = "https://www.lupin.com";
   var HOME = "/";
+  var LOGO = {
+    src: "https://main--lupinus--cpanditadobe.aem.live/media_1fbb4975e5a28eac21c41458115f499d47b8b6bb2.png",
+    alt: "Lupin Logo"
+  };
   var NAV_LINKS = [
     { text: "Contact Your Representative", href: "/us/contact-us" },
     // opens the registration dialog (scripts/register.js)
-    { text: "Register", href: "/us/register" },
+    { text: "Register/Sign In", href: "/us/register" },
     // deletes the registration cookie; shown only while registered (scripts/register.js)
     { text: "Sign out", href: "/us/sign-out" }
   ];
-  function publicImageUrl(img) {
-    const src = new URL(img.getAttribute("src"), `${ORIGIN}/US/`);
-    const original = src.searchParams.get("url");
-    return original ? new URL(original, ORIGIN).href : src.href;
-  }
   var import_nav_default = {
     transform: ({ document }) => {
       const main = document.createElement("div");
-      const logo = document.querySelector('header a[href="/US"] img, header img[alt*="Logo" i]');
-      if (logo) {
-        const p = document.createElement("p");
-        const a = document.createElement("a");
-        a.href = HOME;
-        const img = document.createElement("img");
-        img.src = publicImageUrl(logo);
-        img.alt = logo.getAttribute("alt") || "Lupin";
-        a.append(img);
-        p.append(a);
-        main.append(p, document.createElement("hr"));
-      }
+      const p = document.createElement("p");
+      const a = document.createElement("a");
+      a.href = HOME;
+      const img = document.createElement("img");
+      img.src = LOGO.src;
+      img.alt = LOGO.alt;
+      a.append(img);
+      p.append(a);
+      main.append(p, document.createElement("hr"));
       const ul = document.createElement("ul");
       NAV_LINKS.forEach(({ text, href }) => {
         const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.href = href;
-        a.textContent = text;
-        li.append(a);
+        const a2 = document.createElement("a");
+        a2.href = href;
+        a2.textContent = text;
+        li.append(a2);
         ul.append(li);
       });
       main.append(ul);
@@ -67,7 +62,7 @@ var CustomImportScript = (() => {
         path: "/nav",
         report: {
           template: "nav",
-          logo: logo ? publicImageUrl(logo) : null,
+          logo: LOGO.src,
           links: NAV_LINKS.map((l) => l.text)
         }
       }];
