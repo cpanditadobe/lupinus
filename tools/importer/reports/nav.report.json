@@ -2,10 +2,11 @@
   "status": "success",
   "url": "https://www.lupin.com/US/product",
   "path": "nav",
-  "timestamp": "2026-10-06T02:12:30.265Z",
+  "timestamp": "2026-10-06T09:05:00.957Z",
   "template": "nav",
   "logo": "https://www.lupin.com/US/images/lupin_logo.webp",
   "links": [
-    "Contact Your Representative"
+    "Contact Your Representative",
+    "Register"
   ]
 }

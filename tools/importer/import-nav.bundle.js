@@ -26,7 +26,9 @@ var CustomImportScript = (() => {
   var ORIGIN = "https://www.lupin.com";
   var HOME = "/";
   var NAV_LINKS = [
-    { text: "Contact Your Representative", href: "/us/contact-us" }
+    { text: "Contact Your Representative", href: "/us/contact-us" },
+    // opens the registration dialog (scripts/register.js)
+    { text: "Register", href: "#register" }
   ];
   function publicImageUrl(img) {
     const src = new URL(img.getAttribute("src"), `${ORIGIN}/US/`);
