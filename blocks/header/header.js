@@ -190,7 +190,7 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  // links to #register open the registration dialog
+  // links to #register or .../register open the registration dialog
   decorateRegisterLinks(block);
 
   // greet a registered visitor next to the logo, and update it on (re-)registration

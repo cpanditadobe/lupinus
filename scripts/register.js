@@ -1,13 +1,25 @@
 /*
- * Registration dialog. Any link to "#register" opens a dialog asking for first name, last name
- * and email; "Register Now" validates the fields and stores them in the lupin_registration
- * cookie (JSON, URI-encoded, one year, site-wide). Existing values pre-fill the form.
- * A successful registration fires REGISTRATION_EVENT on window.
+ * Registration dialog. Any link to "#register" or ".../register" opens a dialog asking for
+ * first name, last name and email; "Register Now" validates the fields and stores them in
+ * the lupin_registration cookie (JSON, URI-encoded, one year, site-wide).
+ * Existing values pre-fill the form. A successful registration fires REGISTRATION_EVENT on window.
  */
 
 const COOKIE_NAME = 'lupin_registration';
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 const REGISTER_HASH = '#register';
+// authored as a path (e.g. /us/register): the content sync rewrites "#…" links to "/"
+const REGISTER_PATH = '/register';
+
+function isRegisterLink(a) {
+  const href = a.getAttribute('href') || '';
+  if (href.endsWith(REGISTER_HASH)) return true;
+  try {
+    return new URL(href, window.location.href).pathname.replace(/\/$/, '').endsWith(REGISTER_PATH);
+  } catch (e) {
+    return false;
+  }
+}
 
 /** fired on window after a registration is saved; detail = the stored registration */
 export const REGISTRATION_EVENT = 'registration:update';
@@ -112,12 +124,12 @@ function openDialog(dialog) {
 }
 
 /**
- * Turns links to #register inside a container into triggers for the registration dialog.
+ * Turns links to #register or .../register inside a container into triggers for the
+ * registration dialog.
  * @param {Element} container element holding the links; the dialog is appended to it
  */
 export function decorateRegisterLinks(container) {
-  const links = [...container.querySelectorAll('a[href]')]
-    .filter((a) => a.getAttribute('href').endsWith(REGISTER_HASH));
+  const links = [...container.querySelectorAll('a[href]')].filter(isRegisterLink);
   if (!links.length) return;
   const dialog = buildDialog(links[0].textContent.trim() || 'Register');
   container.append(dialog);
