@@ -1,6 +1,8 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
-import { decorateRegisterLinks, getRegistration, REGISTRATION_EVENT } from '../../scripts/register.js';
+import {
+  decorateRegisterLinks, decorateSignOutLinks, getRegistration, REGISTRATION_EVENT,
+} from '../../scripts/register.js';
 
 const GREETING_PREFIX = 'Welcome Dr ';
 
@@ -190,10 +192,12 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  // links to #register or .../register open the registration dialog
+  // links to #register or .../register open the registration dialog;
+  // links to #sign-out or .../sign-out delete the registration
   decorateRegisterLinks(block);
+  decorateSignOutLinks(block);
 
-  // greet a registered visitor next to the logo, and update it on (re-)registration
+  // greet a registered visitor next to the logo, and update it on (re-)registration or sign-out
   renderGreeting(navBrand);
   window.addEventListener(REGISTRATION_EVENT, (e) => renderGreeting(navBrand, e.detail));
 }

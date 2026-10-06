@@ -28,7 +28,9 @@ var CustomImportScript = (() => {
   var NAV_LINKS = [
     { text: "Contact Your Representative", href: "/us/contact-us" },
     // opens the registration dialog (scripts/register.js)
-    { text: "Register", href: "/us/register" }
+    { text: "Register", href: "/us/register" },
+    // deletes the registration cookie; shown only while registered (scripts/register.js)
+    { text: "Sign out", href: "/us/sign-out" }
   ];
   function publicImageUrl(img) {
     const src = new URL(img.getAttribute("src"), `${ORIGIN}/US/`);
