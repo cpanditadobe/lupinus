@@ -151,8 +151,13 @@ footer .footer .footer-lead > p:last-child {
   margin-bottom: calc(var(--u) * 1.7067);
 }
 
+/* block-level picture: the delivered <picture> has whitespace between <source>s that would add a line */
+footer .footer .footer-icon-link picture,
 footer .footer .footer-icon-link img {
   display: block;
+}
+
+footer .footer .footer-icon-link img {
   width: calc(var(--u) * 12.0773);
   height: calc(var(--u) * 12.0773);
 }
