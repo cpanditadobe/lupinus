@@ -2,11 +2,15 @@
  * Registration dialog. Any link to "#register" opens a dialog asking for first name, last name
  * and email; "Register Now" validates the fields and stores them in the lupin_registration
  * cookie (JSON, URI-encoded, one year, site-wide). Existing values pre-fill the form.
+ * A successful registration fires REGISTRATION_EVENT on window.
  */
 
 const COOKIE_NAME = 'lupin_registration';
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 const REGISTER_HASH = '#register';
+
+/** fired on window after a registration is saved; detail = the stored registration */
+export const REGISTRATION_EVENT = 'registration:update';
 
 /** @returns {{ firstName: string, lastName: string, email: string } | null} */
 export function getRegistration() {
@@ -80,6 +84,7 @@ function buildDialog(title) {
       ['firstName', 'lastName', 'email'].map((k) => [k, form.elements[k].value.trim()]),
     );
     saveRegistration(data);
+    window.dispatchEvent(new CustomEvent(REGISTRATION_EVENT, { detail: data }));
     status.textContent = `Thank you, ${data.firstName}. You are registered.`;
     form.hidden = true;
   });

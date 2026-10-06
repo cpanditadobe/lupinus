@@ -1,6 +1,8 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
-import { decorateRegisterLinks } from '../../scripts/register.js';
+import { decorateRegisterLinks, getRegistration, REGISTRATION_EVENT } from '../../scripts/register.js';
+
+const GREETING_PREFIX = 'Welcome Dr ';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -88,6 +90,30 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 }
 
 /**
+ * Shows "Welcome Dr <first> <last>" from the stored registration after the logo,
+ * or removes the greeting when there is no registration.
+ * @param {Element} navBrand The brand section of the nav
+ * @param {Object} [registration] registration to show; defaults to the stored cookie
+ */
+function renderGreeting(navBrand, registration = getRegistration()) {
+  let greeting = navBrand.querySelector('.nav-greeting');
+  const name = [registration?.firstName, registration?.lastName]
+    .map((part) => (typeof part === 'string' ? part.trim() : ''))
+    .filter(Boolean)
+    .join(' ');
+  if (!name) {
+    greeting?.remove();
+    return;
+  }
+  if (!greeting) {
+    greeting = document.createElement('p');
+    greeting.className = 'nav-greeting';
+    navBrand.append(greeting);
+  }
+  greeting.textContent = `${GREETING_PREFIX}${name}`;
+}
+
+/**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
@@ -166,4 +192,8 @@ export default async function decorate(block) {
 
   // links to #register open the registration dialog
   decorateRegisterLinks(block);
+
+  // greet a registered visitor next to the logo, and update it on (re-)registration
+  renderGreeting(navBrand);
+  window.addEventListener(REGISTRATION_EVENT, (e) => renderGreeting(navBrand, e.detail));
 }
