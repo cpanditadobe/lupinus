@@ -1,7 +1,8 @@
 /*
  * Marketo forms embed, authored as a link carrying the form settings:
  *   https://pages.marketolive.com/?munchkinId=185-NGX-811&formId=2813
- * The link is replaced with the form, loaded from the link's host once it scrolls near view.
+ * The link is replaced with the form, loaded from the link's host in the delayed phase
+ * (loadMarketoForms, called from loadDelayed in scripts.js).
  * Name fields are pre-filled from the visitor's registration (scripts/register.js).
  */
 
@@ -11,6 +12,10 @@ import { getRegistration, REGISTRATION_EVENT } from './register.js';
 const PREFILL_FIELDS = { FirstName: 'firstName', LastName: 'lastName' };
 
 const scripts = new Map();
+
+/** form loaders waiting for the delayed phase */
+const pending = [];
+let delayed = false;
 
 function loadScript(src) {
   if (!scripts.has(src)) {
@@ -98,11 +103,14 @@ export function decorateMarketoForm(target, { baseUrl, munchkinId, formId }) {
     }
   };
 
-  const observer = new IntersectionObserver((entries) => {
-    if (entries.some((entry) => entry.isIntersecting)) {
-      observer.disconnect();
-      load();
-    }
-  }, { rootMargin: '200px' });
-  observer.observe(container);
+  if (delayed) load();
+  else pending.push(load);
+}
+
+/**
+ * Starts the delayed phase: loads every form decorated so far, and any decorated later at once.
+ */
+export function loadMarketoForms() {
+  delayed = true;
+  pending.splice(0).forEach((load) => load());
 }
