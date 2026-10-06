@@ -3,25 +3,27 @@
  * first name, last name and email; "Register Now" validates the fields and stores them in
  * the lupin_registration cookie (JSON, URI-encoded, one year, site-wide).
  * Existing values pre-fill the form. A successful registration fires REGISTRATION_EVENT on window.
+ * Links to "#sign-out" or ".../sign-out" delete the cookie; they are shown only while registered.
  */
 
 const COOKIE_NAME = 'lupin_registration';
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
-const REGISTER_HASH = '#register';
-// authored as a path (e.g. /us/register): the content sync rewrites "#…" links to "/"
-const REGISTER_PATH = '/register';
+// authored as paths (e.g. /us/register): the content sync rewrites "#…" links to "/"
+const REGISTER = 'register';
+const SIGN_OUT = 'sign-out';
 
-function isRegisterLink(a) {
+/** true for a link to "#{name}" or a path ending in "/{name}" */
+function linksTo(a, name) {
   const href = a.getAttribute('href') || '';
-  if (href.endsWith(REGISTER_HASH)) return true;
+  if (href.endsWith(`#${name}`)) return true;
   try {
-    return new URL(href, window.location.href).pathname.replace(/\/$/, '').endsWith(REGISTER_PATH);
+    return new URL(href, window.location.href).pathname.replace(/\/$/, '').endsWith(`/${name}`);
   } catch (e) {
     return false;
   }
 }
 
-/** fired on window after a registration is saved; detail = the stored registration */
+/** fired on window after a registration is saved (detail = the registration) or cleared (null) */
 export const REGISTRATION_EVENT = 'registration:update';
 
 /** @returns {{ firstName: string, lastName: string, email: string } | null} */
@@ -39,6 +41,11 @@ function saveRegistration(data) {
   const secure = window.location.protocol === 'https:' ? '; Secure' : '';
   const value = encodeURIComponent(JSON.stringify(data));
   document.cookie = `${COOKIE_NAME}=${value}; Max-Age=${COOKIE_MAX_AGE}; Path=/; SameSite=Lax${secure}`;
+}
+
+function clearRegistration() {
+  const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+  document.cookie = `${COOKIE_NAME}=; Max-Age=0; Path=/; SameSite=Lax${secure}`;
 }
 
 function buildField(name, label, type, autocomplete) {
@@ -129,7 +136,7 @@ function openDialog(dialog) {
  * @param {Element} container element holding the links; the dialog is appended to it
  */
 export function decorateRegisterLinks(container) {
-  const links = [...container.querySelectorAll('a[href]')].filter(isRegisterLink);
+  const links = [...container.querySelectorAll('a[href]')].filter((a) => linksTo(a, REGISTER));
   if (!links.length) return;
   const dialog = buildDialog(links[0].textContent.trim() || 'Register');
   container.append(dialog);
@@ -139,6 +146,30 @@ export function decorateRegisterLinks(container) {
       e.preventDefault();
       openDialog(dialog);
       dialog.addEventListener('close', () => link.focus(), { once: true });
+    });
+  });
+}
+
+/**
+ * Turns links to #sign-out or .../sign-out inside a container into sign-out buttons that delete
+ * the registration cookie. Each link (its list item, if any) is hidden while nobody is registered.
+ * @param {Element} container element holding the links
+ */
+export function decorateSignOutLinks(container) {
+  const links = [...container.querySelectorAll('a[href]')].filter((a) => linksTo(a, SIGN_OUT));
+  if (!links.length) return;
+  const show = (registration) => links.forEach((link) => {
+    (link.closest('li') || link).hidden = !registration;
+  });
+  show(getRegistration());
+  window.addEventListener(REGISTRATION_EVENT, (e) => show(e.detail));
+  links.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      clearRegistration();
+      window.dispatchEvent(new CustomEvent(REGISTRATION_EVENT, { detail: null }));
+      // the link is now hidden; keep focus in the nav
+      container.querySelector('a[aria-haspopup="dialog"]')?.focus();
     });
   });
 }

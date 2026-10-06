@@ -43,14 +43,22 @@ export function getMarketoConfig(link) {
 }
 
 /**
- * Fills the form's name fields from a registration. A field the visitor has edited is kept.
+ * Fills the form's name fields from a registration, or clears the filled values on sign-out
+ * (registration null). A field the visitor has edited is kept.
  * @param {Object} form MktoForms2 form
- * @param {Object} registration stored registration
+ * @param {Object|null} registration stored registration
  * @param {Object} filled values this function set last time, by field name
  */
 function prefillForm(form, registration, filled) {
-  if (!registration) return;
   const current = form.vals();
+  if (!registration) {
+    const cleared = Object.fromEntries(Object.keys(filled)
+      .filter((field) => current[field] === filled[field])
+      .map((field) => [field, '']));
+    Object.keys(filled).forEach((field) => delete filled[field]);
+    if (Object.keys(cleared).length) form.vals(cleared);
+    return;
+  }
   const values = {};
   Object.entries(PREFILL_FIELDS).forEach(([field, key]) => {
     const value = typeof registration[key] === 'string' ? registration[key].trim() : '';
