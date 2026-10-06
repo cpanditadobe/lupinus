@@ -3,13 +3,13 @@
  *   https://pages.marketolive.com/?munchkinId=185-NGX-811&formId=2813
  * The link is replaced with the form, loaded from the link's host in the delayed phase
  * (loadMarketoForms, called from loadDelayed in scripts.js).
- * Name fields are pre-filled from the visitor's registration (scripts/register.js).
+ * Name and email fields are pre-filled from the visitor's registration (scripts/register.js).
  */
 
 import { getRegistration, REGISTRATION_EVENT } from './register.js';
 
 /** Marketo field name -> registration property */
-const PREFILL_FIELDS = { FirstName: 'firstName', LastName: 'lastName' };
+const PREFILL_FIELDS = { FirstName: 'firstName', LastName: 'lastName', Email: 'email' };
 
 const scripts = new Map();
 
@@ -48,8 +48,8 @@ export function getMarketoConfig(link) {
 }
 
 /**
- * Fills the form's name fields from a registration, or clears the filled values on sign-out
- * (registration null). A field the visitor has edited is kept.
+ * Fills the form's name and email fields from a registration, or clears the filled values on
+ * sign-out (registration null). A field the visitor has edited is kept.
  * @param {Object} form MktoForms2 form
  * @param {Object|null} registration stored registration
  * @param {Object} filled values this function set last time, by field name
