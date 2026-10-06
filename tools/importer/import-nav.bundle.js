@@ -23,13 +23,31 @@ var CustomImportScript = (() => {
   __export(import_nav_exports, {
     default: () => import_nav_default
   });
+  var ORIGIN = "https://www.lupin.com";
+  var HOME = "/";
   var NAV_LINKS = [
-    { text: "Contact your Representative", href: "/US/contact-us" }
+    { text: "Contact Your Representative", href: "/us/contact-us" }
   ];
+  function publicImageUrl(img) {
+    const src = new URL(img.getAttribute("src"), `${ORIGIN}/US/`);
+    const original = src.searchParams.get("url");
+    return original ? new URL(original, ORIGIN).href : src.href;
+  }
   var import_nav_default = {
-    transform: (payload) => {
-      const { document } = payload;
+    transform: ({ document }) => {
       const main = document.createElement("div");
+      const logo = document.querySelector('header a[href="/US"] img, header img[alt*="Logo" i]');
+      if (logo) {
+        const p = document.createElement("p");
+        const a = document.createElement("a");
+        a.href = HOME;
+        const img = document.createElement("img");
+        img.src = publicImageUrl(logo);
+        img.alt = logo.getAttribute("alt") || "Lupin";
+        a.append(img);
+        p.append(a);
+        main.append(p, document.createElement("hr"));
+      }
       const ul = document.createElement("ul");
       NAV_LINKS.forEach(({ text, href }) => {
         const li = document.createElement("li");
@@ -45,6 +63,7 @@ var CustomImportScript = (() => {
         path: "/nav",
         report: {
           template: "nav",
+          logo: logo ? publicImageUrl(logo) : null,
           links: NAV_LINKS.map((l) => l.text)
         }
       }];

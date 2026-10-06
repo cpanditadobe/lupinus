@@ -1,20 +1,314 @@
-footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+/*
+ * Footer. Values from lupin.com/US (footer). The source scales the footer with the viewport:
+ * mobile values are px / 375 (measured at 375px), desktop values px / 1440 (measured at 1440px).
+ * Mobile-first: base rules are the stacked mobile layout, desktop starts at 900px.
+ * --u is 1vw on mobile, capped at its 540px size so 541-899px doesn't balloon.
+ */
+
+/* lead-column and link-column selectors never target the same elements */
+/* stylelint-disable no-descending-specificity */
+
+footer .footer {
+  --u: min(1vw, 5.4px);
+
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--u) * 12.0773) calc(var(--u) * 6.0386);
+  background-color: rgb(7 162 65);
+  color: #fff;
+  font-family: helvetica-neue-medium, "Helvetica Neue", helvetica, arial, sans-serif;
+  font-size: calc(var(--u) * 4.3478);
+  line-height: 1.5;
 }
 
-footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
-}
-
-footer .footer p {
+footer .footer p,
+footer .footer ul {
   margin: 0;
 }
 
+footer .footer ul {
+  padding: 0;
+  list-style: none;
+}
+
+/* decorative flower behind the content */
+footer .footer::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--u) * 7.2464);
+  left: 0;
+  width: calc(var(--u) * 96.6);
+  aspect-ratio: 701 / 718;
+  background: url('./flower.webp') center / contain no-repeat;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+footer .footer > * {
+  position: relative;
+}
+
+/* links: white, underline grows from the left on hover */
+footer .footer a:any-link {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease-in;
+}
+
+footer .footer a:any-link:not(.footer-icon-link, .footer-back-to-top)::before {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #fff;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease-in;
+}
+
+footer .footer a:any-link:hover::before,
+footer .footer a:any-link:focus-visible::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* headings and contact links also fade on hover (plain column links only underline) */
+footer .footer .footer-heading a:any-link:hover,
+footer .footer .footer-heading a:any-link:focus-visible,
+footer .footer .footer-lead a:any-link:hover,
+footer .footer .footer-lead a:any-link:focus-visible {
+  color: rgb(255 255 255 / 80%);
+}
+
+/* back to top (a.class beats the a:any-link rule above) */
+footer .footer a.footer-back-to-top {
+  position: absolute;
+  top: calc(var(--u) * 7.2464);
+  right: calc(var(--u) * 6.0386);
+  z-index: 9;
+  width: calc(var(--u) * 4.8309);
+  height: calc(var(--u) * 4.8309);
+}
+
+footer .footer .footer-back-to-top img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* stacked bands: lead column, then the link columns */
+footer .footer .footer-main {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 12.0773);
+}
+
+/* lead column: address, contacts, social */
+footer .footer .footer-lead p {
+  margin-bottom: calc(var(--u) * 2.4155);
+}
+
+footer .footer .footer-lead > p:first-child {
+  margin-bottom: calc(var(--u) * 3.6232);
+  line-height: 1.7;
+}
+
+/* the address label is a plain label on the source, not bold */
+footer .footer .footer-lead > p:first-child strong {
+  font-weight: inherit;
+}
+
+footer .footer .footer-lead .footer-heading {
+  margin-bottom: calc(var(--u) * 2.8986);
+  font-family: var(--heading-font-family);
+  line-height: 1.1;
+}
+
+footer .footer .footer-lead .footer-heading strong {
+  font-weight: inherit;
+}
+
+/* the authored line break only applies on desktop */
+footer .footer .footer-lead .footer-heading br {
+  display: none;
+}
+
+/* gap between contact groups (the first heading follows the address' own margin) */
+footer .footer .footer-lead p:not(.footer-heading, :first-child) + .footer-heading,
+footer .footer .footer-lead p:has(> .footer-icon-link) {
+  margin-top: calc(var(--u) * 4.8309);
+}
+
+footer .footer a.footer-icon-link {
+  display: inline-block;
+}
+
+/* the source leaves a baseline gap under the social icon */
+footer .footer .footer-lead > p:last-child {
+  margin-bottom: calc(var(--u) * 1.7067);
+}
+
+footer .footer .footer-icon-link img {
+  display: block;
+  width: calc(var(--u) * 12.0773);
+  height: calc(var(--u) * 12.0773);
+}
+
+/* link columns: the first two side by side, the rest wrap to full rows */
+footer .footer .footer-links {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  gap: calc(var(--u) * 2.4155);
+}
+
+footer .footer .footer-column {
+  /* the source keeps the last group's bottom margin inside each column */
+  padding-bottom: calc(var(--u) * 9.6618);
+}
+
+footer .footer .footer-column:nth-child(n + 3) {
+  grid-column: 1 / -1;
+}
+
+footer .footer .footer-column .footer-heading {
+  font-size: calc(var(--u) * 3.8647);
+  letter-spacing: calc(var(--u) * 0.2415);
+  line-height: 1;
+}
+
+footer .footer .footer-column .footer-heading strong {
+  font-weight: inherit;
+}
+
+footer .footer .footer-column * + .footer-heading {
+  margin-top: calc(var(--u) * 9.6618);
+}
+
+footer .footer .footer-column .footer-heading + ul {
+  margin-top: calc(var(--u) * 2.4155);
+}
+
+footer .footer .footer-column li {
+  font-size: calc(var(--u) * 2.4155);
+  line-height: calc(var(--u) * 5.6);
+}
+
+footer .footer .footer-column li + li {
+  margin-top: calc(var(--u) * 1.9324);
+}
+
+/* bottom bar */
+footer .footer .footer-bottom {
+  margin-top: calc(var(--u) * 7.2464);
+  font-family: var(--body-font-family);
+  font-size: calc(var(--u) * 1.9324);
+  letter-spacing: calc(var(--u) * 0.2415);
+  line-height: 1.5;
+  text-align: center;
+}
+
 @media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+  footer .footer {
+    /* exact source padding at the 1440px design width */
+    padding: 7.1354vw calc(100vw * 37.5 / 1440) calc(100vw * 42 / 1440) calc(100vw * 82.5 / 1440);
+    font-size: 1.1458vw;
+  }
+
+  footer .footer::before {
+    top: 1.25vw;
+    right: auto;
+    left: 49.0104vw;
+    width: 48.7031vw;
+  }
+
+  footer .footer a.footer-back-to-top {
+    top: 4.0625vw;
+    right: 3.4896vw;
+    width: 1.9306vw;
+    height: 1.9306vw;
+  }
+
+  footer .footer .footer-main {
+    flex-direction: row;
+    gap: 7.8125vw;
+  }
+
+  footer .footer .footer-lead {
+    flex: 0 0 20.8333vw;
+  }
+
+  footer .footer .footer-lead p {
+    margin-bottom: 0.7813vw;
+    line-height: 1.5;
+  }
+
+  footer .footer .footer-lead > p:first-child {
+    margin-bottom: 1.8229vw;
+    line-height: 1.7;
+  }
+
+  footer .footer .footer-lead > p:last-child {
+    margin-bottom: 0.4757vw;
+  }
+
+  footer .footer .footer-lead .footer-heading {
+    margin-bottom: 0.7813vw;
+    font-size: 1.5625vw;
+  }
+
+  footer .footer .footer-lead .footer-heading br {
+    display: initial;
+  }
+
+  footer .footer .footer-lead p:not(.footer-heading, :first-child) + .footer-heading,
+  footer .footer .footer-lead p:has(> .footer-icon-link) {
+    margin-top: 2.8125vw;
+  }
+
+  footer .footer .footer-icon-link img {
+    width: 4.8958vw;
+    height: 4.8958vw;
+  }
+
+  footer .footer .footer-links {
+    display: flex;
+    justify-content: normal;
+    gap: 6.5104vw;
+  }
+
+  footer .footer .footer-column {
+    padding-bottom: 0;
+  }
+
+  footer .footer .footer-column .footer-heading {
+    font-size: 1.0417vw;
+    letter-spacing: 0.0521vw;
+  }
+
+  footer .footer .footer-column * + .footer-heading {
+    margin-top: 2.9688vw;
+  }
+
+  footer .footer .footer-column .footer-heading + ul {
+    margin-top: 1.5625vw;
+  }
+
+  footer .footer .footer-column li {
+    font-size: 0.7292vw;
+    line-height: 1.4583vw;
+  }
+
+  footer .footer .footer-column li + li {
+    margin-top: 0.7813vw;
+  }
+
+  footer .footer .footer-bottom {
+    margin-top: 7.8125vw;
+    font-size: 0.5313vw;
+    letter-spacing: normal;
   }
 }

@@ -28,3 +28,11 @@
   font-display: swap;
   src: url('https://www.lupin.com/US/fonts/helvetica/bold/Helvetica_LT_Std_Bold.woff') format('woff');
 }
+
+@font-face {
+  font-family: helvetica-neue-medium;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://www.lupin.com/US/fonts/helvetica/neue/HelveticaNeue-Medium.woff2') format('woff2'), url('https://www.lupin.com/US/fonts/helvetica/neue/HelveticaNeue-Medium.woff') format('woff');
+}

@@ -164,14 +164,29 @@ header .nav-brand {
   line-height: 1;
 }
 
+/* Lupin logo, sized like the source header: 91px at 375px, 101px at 1440px */
+header nav .nav-brand a:any-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+header nav .nav-brand picture,
 header nav .nav-brand img {
-  width: 128px;
+  display: block;
+}
+
+header nav .nav-brand img {
+  width: min(24.2667vw, 131px);
   height: auto;
 }
 
 @media (width >= 900px) {
   header nav .nav-brand:empty {
     display: none;
+  }
+
+  header nav .nav-brand img {
+    width: 7.0139vw;
   }
 }
 
